@@ -9,7 +9,7 @@
 
 
 
-.game-board {
+.area-plantio {
     
 gap: 5px;
 width: 800px;
@@ -17,13 +17,13 @@ height: 800px;
 margin: 30px auto;
 padding: 5px;
 display: grid;
-grid-template-rows: repeat(3,1fr);
-grid-template-columns: repeat(4,1fr);
+grid-template-rows: repeat(12,1fr);
+grid-template-columns: repeat(12,1fr);
 border: 5px solid black;
 }
 
 
-.local-plantio{
+.unidade-plantio{
 
     border: 1px solid red;
     background-color: aqua;
