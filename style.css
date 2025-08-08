@@ -7,7 +7,10 @@
   
 }
 
-
+body{
+    text-align: center;
+    padding-top: 15px;
+}
 
 .area-plantio {
     
@@ -28,4 +31,16 @@ border: 5px solid black;
     border: 1px solid red;
     background-color: aqua;
   
+}
+
+.unidade-plantio[data-estado_solo = "pedra"]{
+    background-color: gray;
+}
+
+.unidade-plantio[data-estado_solo = "erva_daninha"]{
+    background-color: lightgreen;
+}
+
+.unidade-plantio[data-estado_solo = "vazio"]{
+    background-color: brown;
 }

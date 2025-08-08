@@ -28,10 +28,6 @@ let semente = {  //parâmetros fixos , os que mudam colocar em outros lugar?
     },
    
 
-    
-    
-
-
-
-
 }
+
+
