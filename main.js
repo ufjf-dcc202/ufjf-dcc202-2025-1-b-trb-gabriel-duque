@@ -32,11 +32,28 @@ function cria_unidades_plantio(area_plantio) {
     for (let i = 0; i < quantidade_unidade_plantio; i++) {
         const unidade_plantio = document.createElement('div');
         unidade_plantio.classList.add('unidade-plantio');
+        
+        unidade_plantio.addEventListener('click',unidade_plantio_click);
 
         area_plantio.appendChild(unidade_plantio);
     }
 
 }
+
+
+//funcao para lidar com o clique na area de plantio
+
+function unidade_plantio_click(evento){
+console.log('Click na planta',evento);
+
+ 
+}
+
+
+
+
+
+
 
 //
   const areaPlantio = cria_area_plantio();
