@@ -1,12 +1,8 @@
 // main js
 
-const estado_solo = ["vazio","pedra","erva_daninha"];
+const estado_solo = ["vazio","pedra","erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
 
 
-let ambiente = {
-    temperatura: 25,    // ºC
-    umidade_ar: 60,    // %
-}
 
 /* let unidade_plantio = {    //esse é o solo 
     estado,  // se está limpo, com pedra, com erva daninha
@@ -52,8 +48,24 @@ function cria_unidades_plantio(area_plantio) {
 //funcao para lidar com o clique na area de plantio
 
 function unidade_plantio_click(evento){
-console.log('Click na planta',evento);
 
+   const unidade_atual = evento.currentTarget;
+   const data = unidade_atual.dataset.estado_solo;
+
+   switch(data){
+    case 'pedra': 
+    console.log('quebrou a pedra',evento); 
+    break;
+
+    case 'vazio':
+    console.log('ta vazio',evento);
+    break;
+
+    case 'erva_daninha':
+     console.log('capinou a erva daninha',evento);
+     break;
+   }
+  
 
  
 }

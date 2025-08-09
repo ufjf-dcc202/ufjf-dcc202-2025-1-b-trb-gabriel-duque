@@ -1,15 +1,15 @@
 
 const ferramentas = [
     "enxada",
-    "limpa_tudo",
-     "picareta",
-      "foice",
-      "regador"
+    "picareta",
+    "foice",
+    "regador"
 
 ];
 
-
-
+export function get_ferramentas(){   
+    return [...ferramentas];
+}
 
 
 
