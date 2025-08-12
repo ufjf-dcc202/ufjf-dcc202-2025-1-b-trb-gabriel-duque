@@ -1,33 +1,43 @@
 
 const ferramentas = [
+    "limpador",
     "enxada",
-    "picareta",
-    "foice",
     "regador"
 
 ];
 
-export function get_ferramentas(){   
+export function get_ferramentas() {
     return [...ferramentas];
 }
 
-
-
-export function limpar_unidade_plantio(estado_solo){
+export function get_unidade(unidade){
     
-    if(estado_solo === 'pedra'){
-       console.log('quebrou a pedra')
+}
 
-    }else if(estado_solo === 'erva_daninha'){
-       console.log('cortou a erva daninha')
+export function limpar_unidade_plantio(unidade, estado_solo) {
+      
+    if()
+    if (estado_solo === 'pedra') {
+        console.log('quebrou a pedra')
+
+    } else if (estado_solo === 'erva_daninha') {
+        console.log('cortou a erva daninha')
     }
 }
 
-export function enxada(){
-   
+
+
+export function picareta(unidade_plantio) 
+{
+    let ferramenta_selecionada = ferramentas[1];    // a picareta
+
+    if (estado_solo === 'pedra') {
+        unidade_plantio.dataset.estado_solo = 'vazio';
+
+    }
 }
 
-export function regador(){
-
+/* export function regador() {
+    if (estado_solo === 'vazio)
 }
-
+ */

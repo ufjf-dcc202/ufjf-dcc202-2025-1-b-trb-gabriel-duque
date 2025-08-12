@@ -4,11 +4,10 @@ let semente = {  //parâmetros fixos , os que mudam colocar em outros lugar?
 
    trigo: {
       
-      pesticida: 0, // concentracao de pesticida na planta, 0-100, se chegar a 0 fica sucetivel a pestes, abaixo de 50 a imunidade para pestes some e tem uma chance reduzida de ter as pestes, até zerar a proteção
+     polinizador: 0, // concentracao de polinizador na planta, 0-100, se chegar a 0 velocidade normal, 100 fica mais rapido o crescimento
      
-      adubação: 0, // 0 significa que nao está adubado, 1 significa que está adubado  
       hidratação: 50,  // 100 significa que está na capacidade maxima de agua, se está esta em 100 a planta cresce mais rapido, se o solo n esta mais umido, diminui essa hidratacao gradualmente
-      fase_crescimento: 1, // 1 - semente , 2 - pequena, 3 - media, 4 - madura  (é a atual), cada fase demora tempo diferente
+      fase_crescimento: 1, // 1 - semente , 2 - pequena, 3 - madura  (é a atual), cada fase demora tempo diferente
       maduro: 0,  // 1 se está pronto para colher, 0 se nao está
       vida: 100, // 100 significa vida cheia, abaixo de 50 fica doente, 0 morre, vida abaixa ou aumenta depende de certas condições?
       tempo_plantado: 0, // a quanto tempo está plantado/ em quanto tempo fica bom para colheita ( fazer um timer para mostrar isso)  1 min  (para mostrar para o fazendeiro), modelar em ciclos ou dias/hrs?
