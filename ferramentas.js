@@ -25,7 +25,11 @@ export function get_ferramenta_selecionada(){
 }
 
 export function seleciona_ferramenta(ferramenta){
-   
+   if(ferramentas.includes(ferramenta)){
+    ferramenta_selecionada = ferramenta;
+   } else {
+    console.log('Não existe ferramenta com o nome', ferramenta);
+   }
 }
 
 export function tesoura(unidade_plantio) {

@@ -44,3 +44,32 @@ border: 5px solid black;
 .unidade-plantio[data-estado_solo = "vazio"]{
     background-color: brown;
 }
+
+.menu-ferramentas {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: rgba(0,0,0,0.05);
+  border-radius: 8px;
+}
+
+.slot-ferramenta {
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: transform .08s ease, border-color .12s ease;
+}
+
+.slot-ferramenta:active { transform: translateY(1px); }
+
+.slot-ferramenta.selected {
+  border-color: #ffd166;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
