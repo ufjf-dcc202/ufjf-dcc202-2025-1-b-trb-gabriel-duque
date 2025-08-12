@@ -13,13 +13,19 @@ const cores = {
     erva_daninha: 'lightgreen',   // verde erva
     preparado : 'pink'
   };
-  /*  */
+
+let ferramenta_selecionada = null;
+
 export function get_ferramentas() {
     return [...ferramentas];
 }
 
-export function seleciona_ferramenta(ferramenta){
+export function get_ferramenta_selecionada(){
+  return ferramenta_selecionada;
+}
 
+export function seleciona_ferramenta(ferramenta){
+   
 }
 
 export function tesoura(unidade_plantio) {

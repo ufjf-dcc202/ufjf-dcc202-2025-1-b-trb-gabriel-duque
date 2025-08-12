@@ -1,6 +1,6 @@
 // main js
 
-import { get_ferramentas, enxada, picareta, tesoura } from "./ferramentas";
+import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxada, picareta, tesoura } from "./ferramentas";
 
 const estado_solo = ["vazio","pedra","erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
 const preparo_solo = ["preparado","não_preparado"]; // usado para gerir o preparo do solo para conseguir plantar
@@ -8,11 +8,7 @@ const preparo_solo = ["preparado","não_preparado"]; // usado para gerir o prepa
 const quantidade_unidade_plantio = 144;
 const tabuleiro_area_plantio = new Array(quantidade_unidade_plantio).fill('vazio');
 
- /*  const cores = {
-    vazio: 'brown',        // marrom claro / chão
-    pedra: 'gray',        // cinza pedra
-    erva_daninha: 'lightgreen'   // verde erva
-  }; */
+ 
 
 let selecionado = null;
 
@@ -30,7 +26,7 @@ function cria_area_plantio() {
 
 // funcao que cria as unidades de plantio de acordo com a quantidade desejada
 function cria_unidades_plantio(area_plantio) {
-   const preparado_solo = "não_preparado";
+   const preparado_inicial = "não_preparado";
 
     for (let i = 0; i < quantidade_unidade_plantio; i++) {
         const unidade_plantio = document.createElement('div');
@@ -41,7 +37,7 @@ function cria_unidades_plantio(area_plantio) {
         unidade_plantio.dataset.estado_solo = estado_solo_aleatorio;  // armazena o estado_solo para a logica do funcionamento da ferramenta
         unidade_plantio.dataset.posicao = String(i);  // pega a posicao para eu poder ajustar o click depois
 
-        unidade_plantio.dataset.preparado_solo = preparado_solo;
+        unidade_plantio.dataset.preparado_solo = preparado_inicial;
 
      //   unidade_plantio.addEventListener('click',unidade_plantio_click);
        
@@ -58,28 +54,40 @@ function cria_unidades_plantio(area_plantio) {
 
 function unidade_plantio_click(evento){
 
-   const unidade_atual = evento.currentTarget;
+   const unidade_atual = evento.currentTarget;    // mudar evento para click?
    const data = unidade_atual.dataset.estado_solo;
    const preparo = unidade_atual.dataset.preparo_solo;
+   const ferramenta_selecionada = get_ferramenta_selecionada();
 
    switch(data){
     case 'pedra': 
-    console.log('quebrou a pedra',evento);
+    console.log('clicou na pedra',evento);
+    if(ferramenta_selecionada === 'picareta'){
     picareta(unidade_atual);
+  }else{
+    console.log('para quebrar a pedra use uma picareta');
+  }
    
     break;
 
     case 'vazio':
-    console.log('ta vazio',evento);
-    if(preparo === 'não_preparado' && get_ferramentas() === 'enxada'){   // mudar o getferramenta para seleciona_ferramenta
+    console.log('clicou na unidade vazia',evento);
+    if(preparo === 'não_preparado' && ferramenta_selecionada === 'enxada'){   // mudar o getferramenta para seleciona_ferramenta
     enxada(unidade_atual);
+    } else {
+      console.log('para preparar o solo, ele precisa estar vazio e precisa usar uma enxada');
     }
     break;
 
     case 'erva_daninha':
-     console.log('capinou a erva daninha',evento);
-     tesoura(unidade_atual);
+     console.log('clicou na erva daninha',evento);
+     if(ferramenta_selecionada === 'tesoura'){
     
+     
+     tesoura(unidade_atual);
+     } else {
+      console.log('para cortar a erva daninha use uma tesoura');
+     }    
      break;
    }
   
