@@ -86,3 +86,21 @@ border: 5px solid black;
   font-family: monospace;
   font-size: 18px;
 }
+
+#btn-timer-regride{
+  position: absolute;
+  font-size: large;
+  top: 80px;          /* distância do topo */
+  right: 80px;
+  background-color: rgba(0,0,0,0.7);
+  color: white;
+}
+
+#btn-timer-progride{
+  position: absolute;
+  font-size: large;
+  top: 80px;          /* distância do topo */
+  right: 10px;
+  background-color: rgba(0,0,0,0.7);
+  color: white;
+}

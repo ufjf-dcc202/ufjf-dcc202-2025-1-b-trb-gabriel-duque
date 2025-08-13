@@ -241,6 +241,14 @@ function timer() {   //transformar em classe depois, vai comepansar
 }
 
 
+function cria_btn_timer(texto_botao){
+  const btn_timer = document.createElement('button');
+  btn_timer.classList.add('btn-timer');
+  btn_timer.textContent = texto_botao;
+  return btn_timer;
+}
+
+
 
 
 
@@ -260,6 +268,18 @@ const temporizador = timer();
 document.body.appendChild(temporizador);
 });
 
+
+for(let i=0; i< 2; i++){
+  if(i== 0){
+const btn_timer_regride =  cria_btn_timer("<");
+  btn_timer_regride.setAttribute('id', 'btn-timer-regride');
+  document.body.appendChild(btn_timer_regride);
+  } else {
+    const btn_timer_progride = cria_btn_timer(">")
+    btn_timer_progride.setAttribute('id', 'btn-timer-progride');
+    document.body.appendChild(btn_timer_progride);
+  }
+}
 
 
 areaPlantio.addEventListener('click', (evento) => {
