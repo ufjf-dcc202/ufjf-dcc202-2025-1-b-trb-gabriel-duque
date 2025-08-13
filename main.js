@@ -25,57 +25,57 @@ function cria_area_plantio() {
 }
 
 //funcao que cria o menu de ferrametnas
-function cria_menu_ferramentas(){
+function cria_menu_ferramentas() {
   const inventario_ferramenta = document.createElement('div');
-   inventario_ferramenta.classList.add('menu-ferramentas');
-   
-   const lista_ferramentas = get_ferramentas();
-   let botao_selecionado = null;
+  inventario_ferramenta.classList.add('menu-ferramentas');
 
-   for(let i=0;i< lista_ferramentas.length; i++){
+  const lista_ferramentas = get_ferramentas();
+  let botao_selecionado = null;
+
+  for (let i = 0; i < lista_ferramentas.length; i++) {
     const nome_ferramenta = lista_ferramentas[i];
-    
+
     const btn_ferramenta = document.createElement('button');
-    btn_ferramenta.type ="button";
+    btn_ferramenta.type = "button";
     btn_ferramenta.classList.add('slot-ferramenta');
     btn_ferramenta.dataset.ferramenta = nome_ferramenta;
     btn_ferramenta.dataset.pressionado = 'false';
-    
+
     btn_ferramenta.textContent = nome_ferramenta;
-   
-     
 
-   
 
-  inventario_ferramenta.appendChild(btn_ferramenta);
-   }
 
-//listener
-   
-    inventario_ferramenta.addEventListener('click', (evento)=>{
-    const botao = evento.target.closest('.slot-ferramenta');  
+
+
+    inventario_ferramenta.appendChild(btn_ferramenta);
+  }
+
+  //listener
+
+  inventario_ferramenta.addEventListener('click', (evento) => {
+    const botao = evento.target.closest('.slot-ferramenta');
     if (!botao) return; // não clicou em botão
 
-    if(botao_selecionado){  //quando ja existe botao selecionado
-     botao_selecionado.dataset.pressionado = "false";
-     botao_selecionado.classList.remove('selecionado'); // css
+    if (botao_selecionado) {  //quando ja existe botao selecionado
+      botao_selecionado.dataset.pressionado = "false";
+      botao_selecionado.classList.remove('selecionado'); // css
     }
-    
+
     // Seleciona o botão clicado
     botao.dataset.pressionado = 'true';
     botao.classList.add('selecionado');
     botao_selecionado = botao;
-    
+
     //atualiza qual ferramenta esta seleliconada
     seleciona_ferramenta(botao.dataset.ferramenta);
-      console.log('Ferramenta selecionada:', botao.dataset.ferramenta);
-   });
+    console.log('Ferramenta selecionada:', botao.dataset.ferramenta);
+  });
 
 
 
-    
+
   // ver e modificar essa parte antes de dar commit
-  
+
   // Detectar clique no "vazio" (desmarca seleção)
   document.addEventListener('click', (evento) => {
     const clicou_em_ferramenta = evento.target.closest('.slot-ferramenta');
@@ -87,15 +87,15 @@ function cria_menu_ferramentas(){
         botao_selecionado.classList.remove('selecionado');
         botao_selecionado = null;
         seleciona_ferramenta(null); // Nenhuma ferramenta
-         console.log('Nenhuma ferramenta selecionada');
+        console.log('Nenhuma ferramenta selecionada');
       }
     }
   });
-  
 
 
-  
-   return inventario_ferramenta;
+
+
+  return inventario_ferramenta;
 
 }
 
@@ -117,7 +117,7 @@ function cria_unidades_plantio(area_plantio) {
 
     unidade_plantio.dataset.preparo_solo = preparo_inicial;
     unidade_plantio.dataset.umidade_solo = umidade_inicial;
-    
+
 
     // guarda no tabuleiro lógico para referência futura
     tabuleiro_area_plantio[i] = estado_solo_aleatorio;
@@ -151,17 +151,21 @@ function unidade_plantio_click(unidade_atual) {
 
     case 'vazio':
       console.log('clicou na unidade vazia', unidade_atual);
-      if(umidade === 'seco' && ferramenta_selecionada === 'regador'){
-        regador(unidade_atual);
-      }
-      else {
-       console.log('para deixar o solo umido, ele precisa estar seco e precisa usar um regador');
+
+      if (ferramenta_selecionada === 'regador') {
+        if (umidade === 'seco') {
+          regador(unidade_atual);
+        } else {
+          console.log('para deixar o solo úmido, ele precisa estar seco');
+        }
       }
 
-      if (preparo === 'não_preparado' && ferramenta_selecionada === 'enxada') {   // mudar o getferramenta para seleciona_ferramenta
-        enxada(unidade_atual);
-      } else {
-        console.log('para preparar o solo, ele precisa estar vazio e precisa usar uma enxada');
+      if (ferramenta_selecionada === 'enxada') {
+        if (preparo === 'não_preparado') {
+          enxada(unidade_atual);
+        } else {
+          console.log('para preparar o solo, ele precisa estar vazio e não preparado');
+        }
       }
       break;
 
@@ -189,33 +193,82 @@ function gera_estado_solo_aleatorio() {
 }
 
 
+function timer() {   //transformar em classe depois, vai comepansar
+  const contador = document.createElement('div');
+  contador.classList.add('timer');
+
+  let minutos = 6;
+  let segundos = 0;
+
+  function get_minuto() {
+    return minutos;
+  }
+
+  function set_minuto(valor) {
+    minutos = valor;
+  }
+
+  function get_segundo() {
+    return segundos;
+  }
+
+  function set_segundo(valor) {
+    segundos = valor;
+  }
+
+  function atualizar_visor() {
+    contador.textContent =
+      get_minuto().toString().padStart(2, '0') + ':' +
+      get_segundo().toString().padStart(2, '0');
+  }
+
+  function tick() {
+    set_segundo(get_segundo() + 1);
+    if (get_segundo() === 60) {
+      set_segundo(0);
+      set_minuto(get_minuto() + 1);
+    }
+    if (get_minuto() === 24 && get_segundo() === 0) {
+      set_minuto(0);
+    }
+    atualizar_visor();
+  }
+
+  atualizar_visor();
+  setInterval(tick, 1000);
+
+  return contador;
+}
 
 
 
 
 
 
- // ate o DOM estar pronto
 
-  const areaPlantio = cria_area_plantio();
-  document.body.appendChild(areaPlantio);
-  cria_unidades_plantio(areaPlantio);
+// ate o DOM estar pronto
 
-  const menuFerramentas = cria_menu_ferramentas();
-  document.body.appendChild(menuFerramentas);
+const areaPlantio = cria_area_plantio();
+document.body.appendChild(areaPlantio);
+cria_unidades_plantio(areaPlantio);
 
+const menuFerramentas = cria_menu_ferramentas();
+document.body.appendChild(menuFerramentas);
 
-
+document.addEventListener('DOMContentLoaded', () => {
+const temporizador = timer();
+document.body.appendChild(temporizador);
+});
 
 
 
 areaPlantio.addEventListener('click', (evento) => {
   const cel_plantio = evento.target.closest('.unidade-plantio');
   if (!cel_plantio) return;
- unidade_plantio_click(cel_plantio);
-  
+  unidade_plantio_click(cel_plantio);
 
-  
+
+
 
 }
 );
