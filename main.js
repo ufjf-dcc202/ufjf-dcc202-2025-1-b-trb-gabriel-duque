@@ -187,14 +187,14 @@ function gera_estado_solo_aleatorio() {
 
 
  // ate o DOM estar pronto
-document.addEventListener('DOMContentLoaded', () => {
+
   const areaPlantio = cria_area_plantio();
   document.body.appendChild(areaPlantio);
   cria_unidades_plantio(areaPlantio);
 
   const menuFerramentas = cria_menu_ferramentas();
   document.body.appendChild(menuFerramentas);
-});
+
 
 
 
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
 areaPlantio.addEventListener('click', (evento) => {
   const cel_plantio = evento.target.closest('.unidade-plantio');
   if (!cel_plantio) return;
- unidade_plantio_click(unidade_atual);
+ unidade_plantio_click(cel_plantio);
   
 
   
