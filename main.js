@@ -5,7 +5,7 @@ import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxa
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
 const preparo_solo = ["preparado", "não_preparado"]; // usado para gerir o preparo do solo para conseguir plantar
-const humidade_solo = ["umido", "seco"];
+const umidade_solo = ["umido", "seco"];
 const quantidade_unidade_plantio = 144;
 const QTD_FERRAMENTA = 4;  // apagar, mas lembrar de colocar em maiusclo as constantes
 const tabuleiro_area_plantio = new Array(quantidade_unidade_plantio).fill('vazio');
@@ -103,7 +103,7 @@ function cria_menu_ferramentas(){
 
 // funcao que cria as unidades de plantio de acordo com a quantidade desejada
 function cria_unidades_plantio(area_plantio) {
-  const preparado_inicial = "não_preparado";
+  const preparo_inicial = "não_preparado";
 
   for (let i = 0; i < quantidade_unidade_plantio; i++) {
     const unidade_plantio = document.createElement('div');
@@ -114,9 +114,9 @@ function cria_unidades_plantio(area_plantio) {
     unidade_plantio.dataset.estado_solo = estado_solo_aleatorio;  // armazena o estado_solo para a logica do funcionamento da ferramenta
     unidade_plantio.dataset.posicao = String(i);  // pega a posicao para eu poder ajustar o click depois
 
-    unidade_plantio.dataset.preparado_solo = preparado_inicial;
+    unidade_plantio.dataset.preparo_solo = preparo_inicial;
 
-    //   unidade_plantio.addEventListener('click',unidade_plantio_click);
+    
 
     // guarda no tabuleiro lógico para referência futura
     tabuleiro_area_plantio[i] = estado_solo_aleatorio;
@@ -131,7 +131,7 @@ function cria_unidades_plantio(area_plantio) {
 
 function unidade_plantio_click(unidade_atual) {
 
-  //const unidade_atual = evento.currentTarget;    // mudar evento para click?
+
   const data = unidade_atual.dataset.estado_solo;
   const preparo = unidade_atual.dataset.preparo_solo;
   const ferramenta_selecionada = get_ferramenta_selecionada();
@@ -209,4 +209,4 @@ areaPlantio.addEventListener('click', (evento) => {
   
 
 }
-)
+);
