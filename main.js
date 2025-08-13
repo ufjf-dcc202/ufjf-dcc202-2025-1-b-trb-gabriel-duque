@@ -1,5 +1,5 @@
 // main js
-console.log('main.js carregou ✅');
+
 
 import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxada, picareta, tesoura } from "./ferramentas.js";
 
@@ -30,6 +30,7 @@ function cria_menu_ferramentas(){
    inventario_ferramenta.classList.add('menu-ferramentas');
    
    const lista_ferramentas = get_ferramentas();
+   let botao_selecionado = null;
 
    for(let i=0;i< lista_ferramentas.length; i++){
     const nome_ferramenta = lista_ferramentas[i];
@@ -38,18 +39,66 @@ function cria_menu_ferramentas(){
     btn_ferramenta.type ="button";
     btn_ferramenta.classList.add('slot-ferramenta');
     btn_ferramenta.dataset.ferramenta = nome_ferramenta;
+    btn_ferramenta.dataset.pressionado = 'false';
     
     btn_ferramenta.textContent = nome_ferramenta;
+   
+     
 
+   
 
   inventario_ferramenta.appendChild(btn_ferramenta);
    }
 
+//listener
+   
+    inventario_ferramenta.addEventListener('click', (evento)=>{
+    const botao = evento.target.closest('.slot-ferramenta');  
+    if (!botao) return; // não clicou em botão
+
+    if(botao_selecionado){  //quando ja existe botao selecionado
+     botao_selecionado.dataset.pressionado = "false";
+     botao_selecionado.classList.remove('selecionado'); // css
+    }
+    
+    // Seleciona o botão clicado
+    botao.dataset.pressionado = 'true';
+    botao.classList.add('selecionado');
+    botao_selecionado = botao;
+    
+    //atualiza qual ferramenta esta seleliconada
+    seleciona_ferramenta(botao.dataset.ferramenta);
+      console.log('Ferramenta selecionada:', botao.dataset.ferramenta);
+   });
 
 
+
+    
+  // ver e modificar essa parte antes de dar commit
+  
+  // Detectar clique no "vazio" (desmarca seleção)
+  document.addEventListener('click', (evento) => {
+    const clicou_em_ferramenta = evento.target.closest('.slot-ferramenta');
+    const clicou_em_area_plantio = evento.target.closest('.area-plantio');
+
+    if (!clicou_em_area_plantio && !clicou_em_ferramenta) {
+      if (botao_selecionado) {
+        botao_selecionado.dataset.pressionado = "false";
+        botao_selecionado.classList.remove('selecionado');
+        botao_selecionado = null;
+        seleciona_ferramenta(null); // Nenhuma ferramenta
+         console.log('Nenhuma ferramenta selecionada');
+      }
+    }
+  });
+  
+
+
+  
    return inventario_ferramenta;
 
 }
+
 
 
 // funcao que cria as unidades de plantio de acordo com a quantidade desejada

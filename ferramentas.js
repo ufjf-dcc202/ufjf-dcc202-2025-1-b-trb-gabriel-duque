@@ -25,6 +25,10 @@ export function get_ferramenta_selecionada(){
 }
 
 export function seleciona_ferramenta(ferramenta){
+  if (ferramenta === null) {
+       ferramenta_selecionada = null;
+       return;
+   }
    if(ferramentas.includes(ferramenta)){
     ferramenta_selecionada = ferramenta;
    } else {
