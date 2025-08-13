@@ -1,7 +1,7 @@
 // main js
 
 
-import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxada, picareta, tesoura } from "./ferramentas.js";
+import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxada, picareta, tesoura, regador } from "./ferramentas.js";
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
 const preparo_solo = ["preparado", "não_preparado"]; // usado para gerir o preparo do solo para conseguir plantar
@@ -104,6 +104,7 @@ function cria_menu_ferramentas(){
 // funcao que cria as unidades de plantio de acordo com a quantidade desejada
 function cria_unidades_plantio(area_plantio) {
   const preparo_inicial = "não_preparado";
+  const umidade_inicial = "seco";
 
   for (let i = 0; i < quantidade_unidade_plantio; i++) {
     const unidade_plantio = document.createElement('div');
@@ -115,7 +116,7 @@ function cria_unidades_plantio(area_plantio) {
     unidade_plantio.dataset.posicao = String(i);  // pega a posicao para eu poder ajustar o click depois
 
     unidade_plantio.dataset.preparo_solo = preparo_inicial;
-
+    unidade_plantio.dataset.umidade_solo = umidade_inicial;
     
 
     // guarda no tabuleiro lógico para referência futura
@@ -134,6 +135,7 @@ function unidade_plantio_click(unidade_atual) {
 
   const data = unidade_atual.dataset.estado_solo;
   const preparo = unidade_atual.dataset.preparo_solo;
+  const umidade = unidade_atual.dataset.umidade_solo;
   const ferramenta_selecionada = get_ferramenta_selecionada();
 
   switch (data) {
@@ -149,6 +151,13 @@ function unidade_plantio_click(unidade_atual) {
 
     case 'vazio':
       console.log('clicou na unidade vazia', unidade_atual);
+      if(umidade === 'seco' && ferramenta_selecionada === 'regador'){
+        regador(unidade_atual);
+      }
+      else {
+       console.log('para deixar o solo umido, ele precisa estar seco e precisa usar um regador');
+      }
+
       if (preparo === 'não_preparado' && ferramenta_selecionada === 'enxada') {   // mudar o getferramenta para seleciona_ferramenta
         enxada(unidade_atual);
       } else {

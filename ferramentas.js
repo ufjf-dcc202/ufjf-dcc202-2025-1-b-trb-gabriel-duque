@@ -78,12 +78,13 @@ export function enxada(unidade_plantio)
 
 export function regador(unidade_plantio) {
   const estado = unidade_plantio.dataset.estado_solo;
+  const umidade = unidade_plantio.dataset.umidade_solo;
 
-    if (estado === 'vazio'){
+    if (estado === 'vazio' && umidade === 'seco'){
       atualiza_umidade(unidade_plantio,'umido');
       console.log('usou o regador na unidade de plantio, o solo esta umido');
     } else {
-      console.log('solo precisa estar vazio para regar')
+      console.log('solo precisa estar vazio para regar e estar seco')
     }
 }
  
@@ -126,4 +127,20 @@ function atualiza_preparo_solo(unidade, novo_preparo){
   // aplica a cor (fallback para transparente se não achar)
 
   unidade.style.backgroundColor = cores[novo_preparo] || 'black';
+}
+
+function atualiza_umidade(unidade, nova_umidade){
+  const chave = 'umidade_solo';
+  const antiga_umidade = unidade.dataset[chave];
+   
+   if (antiga_umidade && unidade.classList.contains(antiga_umidade)) {
+    unidade.classList.replace(antiga_umidade, nova_umidade);
+  } else {
+    unidade.classList.add(nova_umidade);
+  }
+
+  unidade.dataset[chave] = nova_umidade;
+
+  unidade.style.borderRadius = '10px';
+  unidade.style.borderColor = 'blue';
 }
