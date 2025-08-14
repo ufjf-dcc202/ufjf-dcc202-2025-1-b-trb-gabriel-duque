@@ -2,12 +2,13 @@
 
 
 import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxada, picareta, tesoura, regador } from "./ferramentas.js";
+import{ get_minuto, set_minuto, get_segundo, set_segundo, atualizar_visor, tick, timer  } from "./timer.js"  
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
 const preparo_solo = ["preparado", "não_preparado"]; // usado para gerir o preparo do solo para conseguir plantar
 const umidade_solo = ["umido", "seco"];
 const quantidade_unidade_plantio = 144;
-const QTD_FERRAMENTA = 4;  // apagar, mas lembrar de colocar em maiusclo as constantes
+
 const tabuleiro_area_plantio = new Array(quantidade_unidade_plantio).fill('vazio');
 
 
@@ -193,52 +194,13 @@ function gera_estado_solo_aleatorio() {
 }
 
 
-function timer() {   //transformar em classe depois, vai comepansar
-  const contador = document.createElement('div');
-  contador.classList.add('timer');
 
-  let minutos = 6;
-  let segundos = 0;
 
-  function get_minuto() {
-    return minutos;
-  }
 
-  function set_minuto(valor) {
-    minutos = valor;
-  }
 
-  function get_segundo() {
-    return segundos;
-  }
 
-  function set_segundo(valor) {
-    segundos = valor;
-  }
 
-  function atualizar_visor() {
-    contador.textContent =
-      get_minuto().toString().padStart(2, '0') + ':' +
-      get_segundo().toString().padStart(2, '0');
-  }
 
-  function tick() {
-    set_segundo(get_segundo() + 1);
-    if (get_segundo() === 60) {
-      set_segundo(0);
-      set_minuto(get_minuto() + 1);
-    }
-    if (get_minuto() === 24 && get_segundo() === 0) {
-      set_minuto(0);
-    }
-    atualizar_visor();
-  }
-
-  atualizar_visor();
-  setInterval(tick, 1000);
-
-  return contador;
-}
 
 
 function cria_btn_timer(texto_botao){
@@ -247,6 +209,78 @@ function cria_btn_timer(texto_botao){
   btn_timer.textContent = texto_botao;
   return btn_timer;
 }
+
+
+
+/* function btn_timer_click(btn) {
+  btn.addEventListener('click', () => {
+    if (btn.id === 'btn-timer-regride') {
+      set_minuto(get_minuto() - 1);
+    } else if (btn.id === 'btn-timer-progride') {
+      set_minuto(get_minuto() + 1);
+    }
+    atualizar_visor();
+  });
+}
+ */
+
+
+
+
+/* function btn_timer_click() {
+  document.addEventListener('click', (evento) => {
+    const clicou_no_btn_timer = evento.target.closest('.btn-timer');
+    
+    // só segue se clicou em um botão e o ID for o que esperamos
+    if (!clicou_no_btn_timer) return;
+    
+    console.log('vc clicou no:',clicou_no_btn_timer );
+
+    if (clicou_no_btn_timer.id === 'btn-timer-regride') {
+      set_minuto(get_minuto() - 1);
+      atualizar_visor();
+    } 
+    else if (clicou_no_btn_timer.id === 'btn-timer-progride') {
+      set_minuto(get_minuto() + 1);
+      atualizar_visor();
+    }
+  });
+ */
+
+
+
+
+  document.addEventListener('click', (evento) => {
+  const btn = evento.target.closest('.btn-timer'); // o botão clicado (ou null)
+  if (!btn) return; // não era um botão de timer
+
+  // debug: mostra id e tipo/valor de get_minuto antes
+  console.log('clicou', btn.id, 'min antes =', get_minuto(), 'tipo=', typeof get_minuto());
+
+  // proteção: garanta que get_minuto retorne número
+  const antes = Number(get_minuto()) || 0;
+
+  if (btn.id === 'btn-timer-regride') {
+    set_minuto(antes - 1);
+  } else if (btn.id === 'btn-timer-progride') {
+    set_minuto(antes + 1);
+  }
+
+  // debug: mostra valor depois
+  console.log('min depois =', get_minuto(), 'tipo=', typeof get_minuto());
+
+  atualizar_visor();
+});
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -269,17 +303,25 @@ document.body.appendChild(temporizador);
 });
 
 
+
+
 for(let i=0; i< 2; i++){
   if(i== 0){
 const btn_timer_regride =  cria_btn_timer("<");
   btn_timer_regride.setAttribute('id', 'btn-timer-regride');
+//  btn_timer_click();
   document.body.appendChild(btn_timer_regride);
   } else {
     const btn_timer_progride = cria_btn_timer(">")
     btn_timer_progride.setAttribute('id', 'btn-timer-progride');
+   //  btn_timer_click();
     document.body.appendChild(btn_timer_progride);
   }
 }
+
+
+
+
 
 
 areaPlantio.addEventListener('click', (evento) => {
