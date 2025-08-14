@@ -3,23 +3,42 @@
 let minutos = 6;
 let segundos = 0;
 let contador = null;
+const qtd_minutos = 24;
+const max_limite_tempo = qtd_minutos * 60;  // 1440
+const min_limite_tempo = 0;
 
 
 export function get_minuto() {
     return minutos;
   }
 
+export  function get_segundo() {
+    
+        return segundos;
+    }
+  
+
 export  function set_minuto(valor) {
-    minutos = valor;
+   const aux = valor*60 + segundos;
+   if (aux > min_limite_tempo && aux < max_limite_tempo){
+          minutos = valor;
+    } else if (aux > max_limite_tempo) {
+       minutos = 0;
+    }else {
+      minutos = 23;
+    }
   }
 
-export  function get_segundo() {
-    return segundos;
-  }
 
 export  function set_segundo(valor) {
-    segundos = valor;
-  }
+   const aux = valor + minutos*60;
+   if (aux > min_limite_tempo && aux < max_limite_tempo){
+          segundos = valor;
+    } else if(aux > max_limite_tempo-1 && minutos == 23) {
+       segundos = 0;
+       minutos = 0;
+    }
+}
 
 export function atualizar_visor() {
     if (!contador) return;
