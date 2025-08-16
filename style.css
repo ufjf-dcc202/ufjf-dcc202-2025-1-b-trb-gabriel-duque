@@ -27,9 +27,12 @@ border: 5px solid black;
 
 
 .unidade-plantio{
-
+   display: flex;
     border: 1px solid red;
     background-color: aqua;
+    justify-content: center;
+    color: black;
+    align-items: center;
   
 }
 

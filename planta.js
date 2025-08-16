@@ -48,13 +48,14 @@ export function get_plantas() {
 }
 
 let tipo_selecionado = null; 
-export function get_tipo_selecionado() { 
+
+export function get_planta_selecionada() { 
    return tipo_selecionado; 
 }
 
 
 
-export function plantar(tipo,unidade_plantio){
+export function plantar(unidade_plantio,tipo){
   const preparo = unidade_plantio.dataset.preparo_solo;
   const est_solo = unidade_plantio.dataset.estado_solo;
   const est_plantio = unidade_plantio.dataset.estado_plantio;
@@ -66,8 +67,8 @@ export function plantar(tipo,unidade_plantio){
             unidade_plantio.dataset.estado_plantio = "com_planta" ;  
             unidade_plantio.dataset.tipo_planta = tipo;   
             unidade_plantio.planta = cria_planta(tipo);  //guarda a inst da planta
-
-
+             console.log('Plantou:',tipo);
+              unidade_plantio.textContent = tipo;     
           }else console.log('não existe planta ', tipo, 'no jogo');
    }
 }
@@ -92,7 +93,7 @@ export function seleciona_planta(tipo){
 
 
 
-function atualiza_estado_planta(unidade,novo_estado_planta){
+/* function atualiza_estado_planta(unidade,novo_estado_planta){
    const chave = 'estado_planta';
   const antigo_estado_planta = unidade.dataset[chave];
    
@@ -104,7 +105,7 @@ function atualiza_estado_planta(unidade,novo_estado_planta){
 
   unidade.dataset[chave] = novo_estado_planta;
 
-}
+} */
 
 
 

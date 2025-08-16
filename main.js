@@ -3,7 +3,7 @@
 
 import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxada, picareta, tesoura, regador } from "./ferramentas.js";
 import{ get_minuto, set_minuto, get_segundo, set_segundo, atualizar_visor, tick, timer  } from "./timer.js"  
-import {seleciona_planta, plantar, get_plantas} from "./planta.js"
+import {seleciona_planta, plantar, get_planta_selecionada, get_plantas} from "./planta.js"
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
 const preparo_solo = ["preparado", "não_preparado"]; // usado para gerir o preparo do solo para conseguir plantar
@@ -142,7 +142,9 @@ function unidade_plantio_click(unidade_atual) {
   const data = unidade_atual.dataset.estado_solo;
   const preparo = unidade_atual.dataset.preparo_solo;
   const umidade = unidade_atual.dataset.umidade_solo;
+  const estado_plantio = unidade_atual.dataset.estado_plantio;
   const ferramenta_selecionada = get_ferramenta_selecionada();
+  const planta_selecionada = get_planta_selecionada();
 
   switch (data) {
     case 'pedra':
@@ -157,13 +159,22 @@ function unidade_plantio_click(unidade_atual) {
 
     case 'vazio':
       console.log('clicou na unidade vazia', unidade_atual);
-
+      
+       if(preparo === 'preparado' && estado_plantio === 'sem_planta' && planta_selecionada){
+           if(planta_selecionada === 'trigo' || planta_selecionada === 'batata' || planta_selecionada === 'milho'  ){
+               
+            plantar(unidade_atual,planta_selecionada);
+         return;
+           } else console.log('planta selecionada é invalida, tipo nao existe');
+       }
+       
       if (ferramenta_selecionada === 'regador') {
         if (umidade === 'seco') {
           regador(unidade_atual);
         } else {
           console.log('para deixar o solo úmido, ele precisa estar seco');
         }
+        return;
       }
 
       if (ferramenta_selecionada === 'enxada') {
@@ -172,7 +183,10 @@ function unidade_plantio_click(unidade_atual) {
         } else {
           console.log('para preparar o solo, ele precisa estar vazio e não preparado');
         }
+        return;
       }
+     
+      console.log('Nenhuma ação válida foi executada (selecione planta ou ferramenta).');
       break;
 
     case 'erva_daninha':
