@@ -4,7 +4,7 @@ let minutos = 6;
 let segundos = 0;
 let contador = null;
 const qtd_minutos = 24;
-const max_limite_tempo = qtd_minutos * 60;  // 1440
+const max_limite_tempo = qtd_minutos * 60;  // 1440    -> 1440 - 1 = 1439 = 23:59
 const min_limite_tempo = 0;
 
 
@@ -12,13 +12,13 @@ export function get_minuto() {
     return minutos;
   }
 
-export  function get_segundo() {
-    
+export  function get_segundo() {      //func para 
+     
         return segundos;
     }
   
 
-export  function set_minuto(valor) {
+export  function set_minuto(valor) { // colocar o get segu aqui
    const aux = valor*60 + segundos;
    if (aux > min_limite_tempo && aux < max_limite_tempo){
           minutos = valor;
@@ -40,7 +40,7 @@ export  function set_segundo(valor) {
     }
 }
 
-export function atualizar_visor() {
+export function atualizar_visor() { // add get contador
     if (!contador) return;
     contador.textContent =
       get_minuto().toString().padStart(2, '0') + ':' +

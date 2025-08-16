@@ -3,10 +3,13 @@
 
 import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxada, picareta, tesoura, regador } from "./ferramentas.js";
 import{ get_minuto, set_minuto, get_segundo, set_segundo, atualizar_visor, tick, timer  } from "./timer.js"  
+import {plantar, get_planta} from "./planta.js"
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
 const preparo_solo = ["preparado", "não_preparado"]; // usado para gerir o preparo do solo para conseguir plantar
 const umidade_solo = ["umido", "seco"];
+const estado_plantio = ["com_planta", "sem_planta"];
+
 const quantidade_unidade_plantio = 144;
 
 const tabuleiro_area_plantio = new Array(quantidade_unidade_plantio).fill('vazio');
@@ -106,6 +109,7 @@ function cria_menu_ferramentas() {
 function cria_unidades_plantio(area_plantio) {
   const preparo_inicial = "não_preparado";
   const umidade_inicial = "seco";
+  const estado_plantio_inicial = "sem_planta";   // pegar no vertor de cima v[i]
 
   for (let i = 0; i < quantidade_unidade_plantio; i++) {
     const unidade_plantio = document.createElement('div');
@@ -118,6 +122,7 @@ function cria_unidades_plantio(area_plantio) {
 
     unidade_plantio.dataset.preparo_solo = preparo_inicial;
     unidade_plantio.dataset.umidade_solo = umidade_inicial;
+    unidade_plantio.dataset.estado_plantio = estado_plantio_inicial;
 
 
     // guarda no tabuleiro lógico para referência futura
@@ -212,42 +217,6 @@ function cria_btn_timer(texto_botao){
 
 
 
-/* function btn_timer_click(btn) {
-  btn.addEventListener('click', () => {
-    if (btn.id === 'btn-timer-regride') {
-      set_minuto(get_minuto() - 1);
-    } else if (btn.id === 'btn-timer-progride') {
-      set_minuto(get_minuto() + 1);
-    }
-    atualizar_visor();
-  });
-}
- */
-
-
-
-
-/* function btn_timer_click() {
-  document.addEventListener('click', (evento) => {
-    const clicou_no_btn_timer = evento.target.closest('.btn-timer');
-    
-    // só segue se clicou em um botão e o ID for o que esperamos
-    if (!clicou_no_btn_timer) return;
-    
-    console.log('vc clicou no:',clicou_no_btn_timer );
-
-    if (clicou_no_btn_timer.id === 'btn-timer-regride') {
-      set_minuto(get_minuto() - 1);
-      atualizar_visor();
-    } 
-    else if (clicou_no_btn_timer.id === 'btn-timer-progride') {
-      set_minuto(get_minuto() + 1);
-      atualizar_visor();
-    }
-  });
- */
-
-
 
 
   document.addEventListener('click', (evento) => {
@@ -334,3 +303,5 @@ areaPlantio.addEventListener('click', (evento) => {
 
 }
 );
+
+
