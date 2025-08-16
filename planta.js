@@ -43,8 +43,13 @@ function cria_planta(tipo){
 }
 
 
-export function get_planta(){
-   return 
+export function get_plantas() {
+  return Object.keys(tipo_planta);
+}
+
+let tipo_selecionado = null; 
+export function get_tipo_selecionado() { 
+   return tipo_selecionado; 
 }
 
 
@@ -66,6 +71,23 @@ export function plantar(tipo,unidade_plantio){
           }else console.log('não existe planta ', tipo, 'no jogo');
    }
 }
+
+
+export function seleciona_planta(tipo){
+   if (tipo === null){
+      tipo_selecionado = null;                 //precisa disso?
+      return;
+   }
+   if(tipo_planta[tipo]){
+      tipo_selecionado = tipo;
+   } else {
+      console.log('Não existe planta com do tipo', tipo);
+   }
+}
+
+
+
+
 
 
 

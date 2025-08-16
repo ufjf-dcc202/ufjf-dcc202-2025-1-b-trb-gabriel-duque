@@ -3,7 +3,7 @@
 
 import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxada, picareta, tesoura, regador } from "./ferramentas.js";
 import{ get_minuto, set_minuto, get_segundo, set_segundo, atualizar_visor, tick, timer  } from "./timer.js"  
-import {plantar, get_planta} from "./planta.js"
+import {seleciona_planta, plantar, get_plantas} from "./planta.js"
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
 const preparo_solo = ["preparado", "não_preparado"]; // usado para gerir o preparo do solo para conseguir plantar
@@ -217,6 +217,82 @@ function cria_btn_timer(texto_botao){
 
 
 
+function cria_menu_planta(){
+   const menu_planta = document.createElement('div');
+  menu_planta.classList.add('menu-planta');
+
+  const lista_planta = get_plantas() || [];
+  let botao_selecionado = null;
+  
+
+  for (let i = 0; i < lista_planta.length; i++) {
+    const tipo_planta = lista_planta[i];
+
+    const btn_planta = document.createElement('button');
+    btn_planta.type = "button";
+    btn_planta.classList.add('slot-planta');
+    btn_planta.dataset.tipo_planta = tipo_planta;
+    btn_planta.dataset.pressionado = 'false';
+
+    btn_planta.textContent = tipo_planta;
+
+
+
+
+
+    menu_planta.appendChild(btn_planta);
+  }
+
+  //listener
+
+  menu_planta.addEventListener('click', (evento) => {
+    const botao = evento.target.closest('.slot-planta');
+    if (!botao) return; // não clicou em botão
+
+    // se clicou no mesmo botão, alterna (desmarca)
+    if (botao_selecionado === botao) {
+      botao.dataset.pressionado = 'false';
+      botao.classList.remove('selecionado');
+      botao_selecionado = null;
+      seleciona_planta(null);
+      console.log('Nenhuma planta selecionada');
+      return;
+    }
+
+
+    if (botao_selecionado) {  //quando ja existe botao selecionado
+      botao_selecionado.dataset.pressionado = "false";
+      botao_selecionado.classList.remove('selecionado'); // css
+    }
+
+    // Seleciona o botão clicado
+    botao.dataset.pressionado = 'true';
+    botao.classList.add('selecionado');
+    botao_selecionado = botao;
+
+    //atualiza qual planta esta seleliconada
+    seleciona_planta(botao.dataset.tipo_planta);
+      console.log('Planta selecionada:', botao.dataset.tipo_planta);
+});
+
+// clique fora do menu vai desmarcar a selecao do botao da planta
+document.addEventListener('click', (evento) => {
+    const clicou_menu_planta = evento.target.closest('.menu-planta');
+    const clicou_btn_planta = evento.target.closest('.slot-planta');
+    if (!clicou_menu_planta && !clicou_btn_planta && botao_selecionado) {
+      botao_selecionado.dataset.pressionado = 'false';
+      botao_selecionado.classList.remove('selecionado');
+      botao_selecionado = null;
+      seleciona_planta(null);
+    }});
+
+
+return menu_planta;
+
+}
+
+
+
 
 
   document.addEventListener('click', (evento) => {
@@ -271,7 +347,8 @@ const temporizador = timer();
 document.body.appendChild(temporizador);
 });
 
-
+const menuPlanta = cria_menu_planta();
+document.body.appendChild(menuPlanta);
 
 
 for(let i=0; i< 2; i++){
