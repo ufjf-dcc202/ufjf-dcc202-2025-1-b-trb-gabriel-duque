@@ -29,7 +29,18 @@ const tipo_planta = {
 };
 
    
-
+function cria_planta(tipo){
+  return{
+   tipo,
+   hidratacao: 50,
+   fase_crescimento: 1,
+   maduro: 0,
+   vida: 100,
+   tempo_plantado: 0,
+   velocidade_crescimento: 1, //multiplica para
+   estado: "crescendo" // ver se é necessario
+  }
+}
 
 
 export function get_planta(){
@@ -38,37 +49,38 @@ export function get_planta(){
 
 
 
-export function plantar(planta,unidade_plantio){
+export function plantar(tipo,unidade_plantio){
   const preparo = unidade_plantio.dataset.preparo_solo;
   const est_solo = unidade_plantio.dataset.estado_solo;
   const est_plantio = unidade_plantio.dataset.estado_plantio;
 
 
    if(est_solo === 'vazio' && preparo === 'preparado' && est_plantio === 'sem_planta'){
-          if(planta.contain('trigo')){
-            unidade_plantio.dataset.estado_plantio = 'com_planta'    
-            unidade_plantio.dataset.tipo_planta = planta;   
-          
+          if(tipo_planta[tipo]) // verifica se existe o tipo no tipo planta
+            {
+            unidade_plantio.dataset.estado_plantio = "com_planta" ;  
+            unidade_plantio.dataset.tipo_planta = tipo;   
+            unidade_plantio.planta = cria_planta(tipo);  //guarda a inst da planta
 
-          } else if(tipo_planta.includes(planta)){
-            
-          } else if(planta.includes('batata')){
 
-          }else console.log('não existe planta ', planta, 'no jogo');
+          }else console.log('não existe planta ', tipo, 'no jogo');
    }
 }
 
-function atualiza_estado_plantio(unidade,novo_estado_plantio){
-   const chave = 'estado_solo_plantio';
-  const antigo_estado_plantio = unidade.dataset[chave];
+
+
+
+function atualiza_estado_planta(unidade,novo_estado_planta){
+   const chave = 'estado_planta';
+  const antigo_estado_planta = unidade.dataset[chave];
    
-   if (antigo_estado_plantio && unidade.classList.contains(antigo_estado_plantio)) {
-    unidade.classList.replace(antigo_estado_plantio, novo_estado_plantio);
+   if (antigo_estado_planta && unidade.classList.contains(antigo_estado_planta)) {
+    unidade.classList.replace(antigo_estado_planta, novo_estado_planta);
   } else {
-    unidade.classList.add(novo_estado_plantio);
+    unidade.classList.add(novo_estado_planta);
   }
 
-  unidade.dataset[chave] = novo_estado_plantio;
+  unidade.dataset[chave] = novo_estado_planta;
 
 }
 
