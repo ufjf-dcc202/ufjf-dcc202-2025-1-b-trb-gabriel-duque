@@ -279,11 +279,15 @@ function cria_menu_planta(){
 document.addEventListener('click', (evento) => {
     const clicou_menu_planta = evento.target.closest('.menu-planta');
     const clicou_btn_planta = evento.target.closest('.slot-planta');
-    if (!clicou_menu_planta && !clicou_btn_planta && botao_selecionado) {
+    const clicou_em_area_plantio = evento.target.closest('.area-plantio');
+    const clicou_unidade_plantio = evento.target.closest('.unidade-plantio');
+
+    if (!clicou_menu_planta && !clicou_btn_planta && !clicou_em_area_plantio && !clicou_unidade_plantio && botao_selecionado) {
       botao_selecionado.dataset.pressionado = 'false';
       botao_selecionado.classList.remove('selecionado');
       botao_selecionado = null;
       seleciona_planta(null);
+      console.log('deselecionou a planta');
     }});
 
 
