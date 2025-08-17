@@ -83,6 +83,11 @@ export function regador(unidade_plantio) {
     if (estado === 'vazio' && umidade === 'seco'){
       atualiza_umidade(unidade_plantio,'umido');
       console.log('usou o regador na unidade de plantio, o solo esta umido');
+
+      if(unidade_plantio.planta) // se tem planta, hidrata ela
+        {
+        unidade_plantio.planta.hidratacao = 100;
+      }
     } else {
       console.log('solo precisa estar vazio para regar e estar seco')
     }

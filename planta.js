@@ -24,6 +24,9 @@ const tipo_planta = {
 };
 
 
+
+
+
    
 function cria_planta(tipo){
   return{
@@ -37,6 +40,15 @@ function cria_planta(tipo){
    inicio_plantado: null // será preenchido ao plantar
   }
 }
+
+
+// parâmetros de ajuste (tweak aqui)
+const HIDRATACAO_INCREMENTO_POR_MIN = 2;   // quando o solo tá 'umido', o quanto aumenta por minuto a hidaratacao da planta
+const HIDRATACAO_DECRESCIMO_POR_MIN = 5;   // quando o solo tá 'seco', o quanto diminui por minuto a hidratacao da planta
+const HIDRATACAO_MIN = 0;
+const HIDRATACAO_MAX = 100;
+
+
 
 const TOTAL_MINUTOS = 24 * 60; // 1440, para tratar o circulo do relógio 23-> 00
 
@@ -191,6 +203,7 @@ export function avanca_fase_unidade(unidade) {
   // ao colher fica sem planta, e bagunça o solo
   unidade.dataset.estado_plantio = 'sem_planta';
   unidade.dataset.preparo_solo = 'sem_preparo';
+  unidade.dataset.umidade_solo = 'seco';
   unidade.planta = null;
   // func para receber dinheiro  etc
   
@@ -200,4 +213,24 @@ export function avanca_fase_unidade(unidade) {
 
   console.log(`colhido ${tipo} por R$${preco} na unidade`, unidade.dataset.posicao);
   return preco;
+}
+
+
+
+// mata a planta e atualiza visual/dados
+export function matar_planta_unidade(unidade) {
+  if (!unidade) return;
+  console.log('matar_planta_unidade: planta morreu na unidade', unidade.dataset.posicao);
+
+  // limpa dataset e objeto planta
+  unidade.dataset.estado_plantio = 'sem_planta';
+  unidade.dataset.preparo_solo = 'não_preparado';
+  unidade.planta = null;
+
+
+  // remove label se houver
+  const label = unidade.querySelector('.planta-label');
+  if (label) label.remove();
+
+
 }
