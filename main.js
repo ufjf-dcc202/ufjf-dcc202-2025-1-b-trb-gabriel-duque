@@ -2,8 +2,8 @@
 
 
 import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxada, picareta, tesoura, regador } from "./ferramentas.js";
-import{ get_minuto, set_minuto, get_segundo, set_segundo, atualizar_visor, tick, timer  } from "./timer.js"  
-import {seleciona_planta, plantar, get_planta_selecionada, get_plantas} from "./planta.js"
+import{atualizar_visor, timer, get_tempo_jogo, ajustar_tempo  } from "./timer.js"  
+import {seleciona_planta, plantar, get_planta_selecionada, get_plantas, avanca_fase_unidade} from "./planta.js"
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
 const preparo_solo = ["preparado", "não_preparado"]; // usado para gerir o preparo do solo para conseguir plantar
@@ -14,9 +14,9 @@ const quantidade_unidade_plantio = 144;
 
 const tabuleiro_area_plantio = new Array(quantidade_unidade_plantio).fill('vazio');
 
+const todas_unidades = [];
 
 
-let selecionado = null;
 
 
 
@@ -129,6 +129,8 @@ function cria_unidades_plantio(area_plantio) {
     tabuleiro_area_plantio[i] = estado_solo_aleatorio;
 
     area_plantio.appendChild(unidade_plantio);
+
+    todas_unidades.push(unidade_plantio);
   }
 
 }
@@ -312,25 +314,23 @@ return menu_planta;
 
 
 
-
+//  Listener dos botões de tempo
   document.addEventListener('click', (evento) => {
   const btn = evento.target.closest('.btn-timer'); // o botão clicado (ou null)
   if (!btn) return; // não era um botão de timer
 
-  // debug: mostra id e tipo/valor de get_minuto antes
-  console.log('clicou', btn.id, 'min antes =', get_minuto(), 'tipo=', typeof get_minuto());
+  // debug: mostra id e tipo/valor de get_tempo_jogo antes
+  console.log('clicou', btn.id, 'tempo antes =', get_tempo_jogo(), 'tipo=', typeof get_tempo_jogo());
 
-  // proteção: garanta que get_minuto retorne número
-  const antes = Number(get_minuto()) || 0;
 
   if (btn.id === 'btn-timer-regride') {
-    set_minuto(antes - 1);
+    ajustar_tempo(60); // avança 60 minutos (no jogo label do jogo)
   } else if (btn.id === 'btn-timer-progride') {
-    set_minuto(antes + 1);
+    ajustar_tempo(10); //avança 10 minuto (no label do jogo)
   }
 
   // debug: mostra valor depois
-  console.log('min depois =', get_minuto(), 'tipo=', typeof get_minuto());
+  console.log('tempo depois =', get_tempo_jogo(), 'tipo=', typeof get_tempo_jogo());
 
   atualizar_visor();
 });
@@ -371,14 +371,14 @@ document.body.appendChild(menuPlanta);
 
 for(let i=0; i< 2; i++){
   if(i== 0){
-const btn_timer_regride =  cria_btn_timer("<");
-  btn_timer_regride.setAttribute('id', 'btn-timer-regride');
-//  btn_timer_click();
+const btn_timer_regride =  cria_btn_timer(">>");
+  btn_timer_regride.setAttribute('id', 'btn-timer-regride'); //mudar os nomes
+
   document.body.appendChild(btn_timer_regride);
   } else {
     const btn_timer_progride = cria_btn_timer(">")
-    btn_timer_progride.setAttribute('id', 'btn-timer-progride');
-   //  btn_timer_click();
+    btn_timer_progride.setAttribute('id', 'btn-timer-progride'); //mudar o nome
+   
     document.body.appendChild(btn_timer_progride);
   }
 }
@@ -400,3 +400,37 @@ areaPlantio.addEventListener('click', (evento) => {
 );
 
 
+
+
+// checagem simples: detecta quando o minuto total muda e atualiza todas unidades
+let ultimo_tempo = Number(get_tempo_jogo());
+
+setInterval(() => {
+  const agora = Number(get_tempo_jogo());
+  if (agora !== ultimo_tempo) {
+    // minuto mudou → atualiza fases de todas unidades
+    ultimo_tempo = agora;
+    
+      // Filtra apenas unidades com plantas
+    todas_unidades.forEach(u => {
+      if (u.planta) { 
+        avanca_fase_unidade(u);
+      }
+   
+  });
+}
+}, 1000); // checa a cada segundo; só executa o corpo quando o minuto mudar
+
+
+
+window.DEBUG = {
+  todas_unidades,
+  avanca_fase_unidade,           // função importada de planta.js
+  get_tempo_jogo: () => get_tempo_jogo(),
+  logPrimeiraUnidade: () => {
+    const u = todas_unidades[0];
+    console.log('primeira unidade DOM:', u);
+    if (u) console.log('dataset', {...u.dataset}, 'planta', u.planta);
+  }
+};
+console.log('DEBUG pronto: use window.DEBUG');

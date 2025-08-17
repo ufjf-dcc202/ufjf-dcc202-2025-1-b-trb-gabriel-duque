@@ -1,73 +1,45 @@
 //timer.js
 
-let minutos = 6;
-let segundos = 0;
+
+let tempo_jogo = 0; //tempo em minutos reais
 let contador = null;
-const qtd_minutos = 24;
-const max_limite_tempo = qtd_minutos * 60;  // 1440    -> 1440 - 1 = 1439 = 23:59
-const min_limite_tempo = 0;
 
 
-export function get_minuto() {
-    return minutos;
+
+export function get_tempo_jogo() {
+    return tempo_jogo;
   }
 
-export  function get_segundo() {      //func para 
-     
-        return segundos;
-    }
+
+// Atualiza o visor para mostrar o tempo do dia
+export function atualizar_visor() {
+  if (!contador) return;
   
-
-export  function set_minuto(valor) { // colocar o get segu aqui
-   const aux = valor*60 + segundos;
-   if (aux > min_limite_tempo && aux < max_limite_tempo){
-          minutos = valor;
-    } else if (aux > max_limite_tempo) {
-       minutos = 0;
-    }else {
-      minutos = 23;
-    }
-  }
-
-
-export  function set_segundo(valor) {
-   const aux = valor + minutos*60;
-   if (aux > min_limite_tempo && aux < max_limite_tempo){
-          segundos = valor;
-    } else if(aux > max_limite_tempo-1 && minutos == 23) {
-       segundos = 0;
-       minutos = 0;
-    }
+  const horas = Math.floor(tempo_jogo / 60) % 24;
+  const minutos = tempo_jogo % 60;
+  
+  contador.textContent = 
+    horas.toString().padStart(2, '0') + ':' +
+    minutos.toString().padStart(2, '0');
 }
 
-export function atualizar_visor() { // add get contador
-    if (!contador) return;
-    contador.textContent =
-      get_minuto().toString().padStart(2, '0') + ':' +
-      get_segundo().toString().padStart(2, '0');
-  }
-
-
+// Avança o tempo de jogo
 export function tick() {
-    set_segundo(get_segundo() + 1);
-    if (get_segundo() === 60) {
-      set_segundo(0);
-      set_minuto(get_minuto() + 1);
-    }
-    if (get_minuto() === 24 && get_segundo() === 0) {
-      set_minuto(0);
-    }
-    atualizar_visor();
-  }
-
-
-export function timer() {   //transformar em classe depois, vai comepansar
- contador = document.createElement('div');
-  contador.classList.add('timer');
-
-
+  tempo_jogo++;
   atualizar_visor();
-  setInterval(tick, 1000);
+}
 
+// Inicializa o timer
+export function timer() {
+  contador = document.createElement('div');
+  contador.classList.add('timer');
+  atualizar_visor();
+  setInterval(tick, 1000); // Avança 1 minuto a cada segundo real
   return contador;
+}
+
+// funcao para poder adiantar o tempo com os botoes
+export function ajustar_tempo(minutos_adicionais) {
+  tempo_jogo += minutos_adicionais;
+  atualizar_visor();
 }
