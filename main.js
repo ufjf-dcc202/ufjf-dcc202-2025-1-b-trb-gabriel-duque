@@ -4,6 +4,7 @@
 import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxada, picareta, tesoura, regador } from "./ferramentas.js";
 import{atualizar_visor, timer, get_tempo_jogo, ajustar_tempo  } from "./timer.js"  
 import {seleciona_planta, plantar, get_planta_selecionada, get_plantas, avanca_fase_unidade} from "./planta.js"
+import {atualiza_tela_saldo, get_saldo} from "./loja.js"
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
 const preparo_solo = ["preparado", "não_preparado"]; // usado para gerir o preparo do solo para conseguir plantar
@@ -337,7 +338,12 @@ return menu_planta;
 
 
 
-
+function cria_label_saldo(){
+  const label = document.createElement('div');
+  label.id = 'dinheiro';
+  label.textContent = `R$ ${get_saldo()}`;
+  return label;
+}
 
 
 
@@ -367,6 +373,12 @@ document.body.appendChild(temporizador);
 
 const menuPlanta = cria_menu_planta();
 document.body.appendChild(menuPlanta);
+
+
+const label_saldo = cria_label_saldo();
+document.body.appendChild(label_saldo);
+
+
 
 
 for(let i=0; i< 2; i++){
@@ -408,7 +420,7 @@ let ultimo_tempo = Number(get_tempo_jogo());
 setInterval(() => {
   const agora = Number(get_tempo_jogo());
   if (agora !== ultimo_tempo) {
-    // minuto mudou → atualiza fases de todas unidades
+    // minuto mudou  atualiza fases de todas unidades
     ultimo_tempo = agora;
     
       // Filtra apenas unidades com plantas

@@ -1,4 +1,5 @@
 import {get_tempo_jogo} from "./timer.js"
+import {vender} from "./loja.js"
 
 // Configuração fixa das plantas
 const tipo_planta = {
@@ -180,9 +181,11 @@ export function avanca_fase_unidade(unidade) {
     console.log('colher: planta ainda não esta madura', unidade && unidade.dataset.posicao);
   }
 
+  const tipo = unidade.plant.tipo;  // ver isso bug?
+  const preco = tipo_planta[tipo].preco_venda;
 
-  vender(unidade.planta);
 
+  vender(preco);
   // ao colher fica sem planta, e bagunça o solo
   unidade.dataset.estado_plantio = 'sem_planta';
   unidade.dataset.preparo_solo = 'sem_preparo';
