@@ -170,6 +170,23 @@ export function avanca_fase_unidade(unidade) {
 
 
 
-/* export function colher(){
+ export function colher(unidade){
+   if(!unidade || !unidade.planta){
+    console.log('colher: sem planta na unidade', unidade && unidade.dataset.posicao);
+    return null;
+   }
+  
+  if(!unidade.planta.maduro) {
+    console.log('colher: planta ainda não esta madura', unidade && unidade.dataset.posicao);
+  }
 
-}*/
+
+  vender(unidade.planta);
+
+  // ao colher fica sem planta, e bagunça o solo
+  unidade.dataset.estado_plantio = 'sem_planta';
+  unidade.dataset.preparo_solo = 'sem_preparo';
+  unidade.planta = null;
+  // func para receber dinheiro  etc
+
+}
