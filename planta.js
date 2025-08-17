@@ -179,6 +179,7 @@ export function avanca_fase_unidade(unidade) {
   
   if(!unidade.planta.maduro) {
     console.log('colher: planta ainda não esta madura', unidade && unidade.dataset.posicao);
+    return null;
   }
 
   const tipo = unidade.planta.tipo;  // ver isso bug?
