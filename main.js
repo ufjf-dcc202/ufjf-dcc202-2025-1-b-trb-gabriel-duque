@@ -3,7 +3,7 @@
 
 import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxada, picareta, tesoura, regador } from "./ferramentas.js";
 import{atualizar_visor, timer, get_tempo_jogo, ajustar_tempo  } from "./timer.js"  
-import {seleciona_planta, plantar, get_planta_selecionada, get_plantas, avanca_fase_unidade} from "./planta.js"
+import {seleciona_planta, plantar, get_planta_selecionada, get_plantas, avanca_fase_unidade, colher} from "./planta.js"
 import {atualiza_tela_saldo, get_saldo} from "./loja.js"
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
@@ -169,6 +169,8 @@ function unidade_plantio_click(unidade_atual) {
             plantar(unidade_atual,planta_selecionada);
          return;
            } else console.log('planta selecionada é invalida, tipo nao existe');
+       } else if(estado_plantio === 'com_planta'){
+                colher(unidade_atual);
        }
        
       if (ferramenta_selecionada === 'regador') {

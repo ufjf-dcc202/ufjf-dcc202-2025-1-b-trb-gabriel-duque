@@ -70,7 +70,7 @@ export function get_planta_selecionada() {
     inst.inicio_plantado = Number(get_tempo_jogo()); //  timestamp do timer agora
     unidade_plantio.planta = inst;
 
-   
+   // label para escrever texto
   let label = unidade_plantio.querySelector('.planta-label');
     if (!label) {
       label = document.createElement('span');
@@ -181,15 +181,22 @@ export function avanca_fase_unidade(unidade) {
     console.log('colher: planta ainda não esta madura', unidade && unidade.dataset.posicao);
   }
 
-  const tipo = unidade.plant.tipo;  // ver isso bug?
+  const tipo = unidade.planta.tipo;  // ver isso bug?
   const preco = tipo_planta[tipo].preco_venda;
 
 
   vender(preco);
+
   // ao colher fica sem planta, e bagunça o solo
   unidade.dataset.estado_plantio = 'sem_planta';
   unidade.dataset.preparo_solo = 'sem_preparo';
   unidade.planta = null;
   // func para receber dinheiro  etc
+  
 
+   const label = unidade.querySelector('.planta-label');
+   if (label) label.remove();
+
+  console.log(`colhido ${tipo} por R$${preco} na unidade`, unidade.dataset.posicao);
+  return preco;
 }
