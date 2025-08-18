@@ -1,3 +1,7 @@
+import { aplicar_visual_unidade } from "./carrega_img.js";
+
+
+
 // ferramentas.js
 const ferramentas = [
     "picareta",
@@ -108,6 +112,7 @@ export function regador(unidade_plantio) {
 
   unidade.dataset[chave] = novo_estado;
   
+  aplicar_visual_unidade(unidade);
   // aplica transição suave (uma vez)
   unidade.style.transition = 'background-color 180ms ease';
   // aplica a cor (fallback para transparente se não achar)
@@ -127,6 +132,8 @@ function atualiza_preparo_solo(unidade, novo_preparo){
 
   unidade.dataset[chave] = novo_preparo;
   
+
+   aplicar_visual_unidade(unidade);
   // aplica transição suave (uma vez)
   unidade.style.transition = 'background-color 180ms ease';
   // aplica a cor (fallback para transparente se não achar)
@@ -146,6 +153,7 @@ function atualiza_umidade(unidade, nova_umidade){
 
   unidade.dataset[chave] = nova_umidade;
 
+  aplicar_visual_unidade(unidade);
   unidade.style.borderRadius = '10px';
   unidade.style.borderColor = 'blue';
 }

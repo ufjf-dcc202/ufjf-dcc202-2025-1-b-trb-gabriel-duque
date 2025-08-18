@@ -6,7 +6,7 @@ import{atualizar_visor, timer, get_tempo_jogo, ajustar_tempo  } from "./timer.js
 import {seleciona_planta, plantar, get_planta_selecionada, get_plantas, avanca_fase_unidade, colher} from "./planta.js"
 import {atualiza_tela_saldo, get_saldo} from "./loja.js"
 import { atualiza_hidratacao_planta_unidade } from "./planta.js";
-import { carregar_imagens, aplicar_visual_unidade } from './carrega_img.js';
+import {  aplicar_visual_unidade } from './carrega_img.js';
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
 
@@ -26,11 +26,6 @@ const quantidade_unidade_plantio = 144;
 const tabuleiro_area_plantio = new Array(quantidade_unidade_plantio).fill('vazio');
 
 const todas_unidades = [];
-
-//carrega imagem e confirma no log
-carregar_imagens().then(results => {
-  console.log('imagens carregadas', results);
-});
 
 
 //funcao que cria a area de plantio

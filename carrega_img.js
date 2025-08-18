@@ -14,20 +14,6 @@ export const overlay_imagens = {
 };
 
 
-// pré-carrega as imagens 
-export function carregar_imagens() {
-  const urls = [...Object.values(mapa_imagens_base), ...Object.values(overlay_imagens)];
-  const loads = urls.map(u => new Promise((res) => {
-    const img = new Image();
-    img.onload = () => res({ url: u, ok: true });
-    img.onerror = () => res({ url: u, ok: false });
-    img.src = u;
-  }));
-  return Promise.all(loads);
-}
-
-
-
   // Aplica o visual da unidade DOM a partir dos datasets
 export function aplicar_visual_unidade(unidade) {
   if (!unidade) return;
