@@ -47,7 +47,7 @@ const HIDRATACAO_INCREMENTO_POR_MIN = 2;   // quando o solo tá 'umido', o quant
 const HIDRATACAO_DECRESCIMO_POR_MIN = 5;   // quando o solo tá 'seco', o quanto diminui por minuto a hidratacao da planta
 const HIDRATACAO_MIN = 0;
 const HIDRATACAO_MAX = 100;
-
+const DANO_DESIDRATADA = 10;
 
 
 const TOTAL_MINUTOS = 24 * 60; // 1440, para tratar o circulo do relógio 23-> 00
@@ -217,6 +217,12 @@ export function avanca_fase_unidade(unidade) {
 
 
 
+
+
+
+
+
+
 // mata a planta e atualiza visual/dados
 export function matar_planta_unidade(unidade) {
   if (!unidade) return;
@@ -232,5 +238,41 @@ export function matar_planta_unidade(unidade) {
   const label = unidade.querySelector('.planta-label');
   if (label) label.remove();
 
+
+}
+
+
+// atualiza hidratação da unidade com base no tempo decorrido
+
+
+export function atualiza_hidratacao_planta_unidade(unidade, minutos = 1) {
+  if (!unidade || !unidade.planta) return;
+  const planta = unidade.planta;
+
+  // 
+  planta.hidratacao = Number(planta.hidratacao || 50);
+  planta.vida = Number(planta.vida || 100);
+
+  const umidade = unidade.dataset.umidade_solo || 'seco';
+
+  if (umidade === 'umido') {
+    // recupera água (capacixadade maxima em 100)
+    planta.hidratacao = Math.min(HIDRATACAO_MAX, planta.hidratacao + HIDRATACAO_INCREMENTO_POR_MIN * minutos);
+  } else {
+    // perde água
+    planta.hidratacao = Math.max(HIDRATACAO_MIN, planta.hidratacao - HIDRATACAO_DECRESCIMO_POR_MIN * minutos);
+  }
+
+  // se sem água, começa a perder vida
+  if (planta.hidratacao === HIDRATACAO_MIN) {
+    planta.vida = planta.vida - DANO_DESIDRATADA * minutos;
+    console.log(`atualiza_hidratacao_planta_unidade: planta na pos ${unidade.dataset.posicao} perdeu vida, vida=${planta.vida}`);
+  }
+
+  // se a vida zerou, mata a planta
+  if (planta.vida === 0) {
+    matar_planta_unidade(unidade);
+    return;
+  }
 
 }
