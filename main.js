@@ -6,8 +6,23 @@ import{atualizar_visor, timer, get_tempo_jogo, ajustar_tempo  } from "./timer.js
 import {seleciona_planta, plantar, get_planta_selecionada, get_plantas, avanca_fase_unidade, colher} from "./planta.js"
 import {atualiza_tela_saldo, get_saldo} from "./loja.js"
 import { atualiza_hidratacao_planta_unidade } from "./planta.js";
+import { } from './carrega_img.js';
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
+
+
+// mapa do estado_solo -> tile key no atlasData.tiles
+const estado_para_img = {
+  'vazio':        'farm:terra_clara',
+  'vazio_preparado': 'farm:terra_escura', // exemplo de combinação preparo+vazio
+ 'vazio_umido':  'farm:terra_umida',
+  'pedra':        'farm:pedra_pequena',
+  'erva_daninha': 'plants:weed'  // ajuste os nomes conforme atlas real
+};
+
+
+
+
 const preparo_solo = ["preparado", "não_preparado"]; // usado para gerir o preparo do solo para conseguir plantar
 const umidade_solo = ["umido", "seco"];
 const estado_plantio = ["com_planta", "sem_planta"];
@@ -115,6 +130,7 @@ function cria_unidades_plantio(area_plantio) {
 
   for (let i = 0; i < quantidade_unidade_plantio; i++) {
     const unidade_plantio = document.createElement('div');
+    
     const estado_solo_aleatorio = gera_estado_solo_aleatorio();
 
     unidade_plantio.classList.add('unidade-plantio', estado_solo_aleatorio);
@@ -133,6 +149,8 @@ function cria_unidades_plantio(area_plantio) {
     area_plantio.appendChild(unidade_plantio);
 
     todas_unidades.push(unidade_plantio);
+
+   //atualizar o backgroud aqui
   }
 
 }
@@ -352,35 +370,29 @@ function cria_label_saldo(){
 
 
 
+    // 1) cria areaPlantio UMA vez e global
+    const areaPlantio = cria_area_plantio();
+    document.body.appendChild(areaPlantio);
 
+    // 2) cria unidades 
+    
+    cria_unidades_plantio(areaPlantio);
 
+    // 3) menus/timers/outros (coloca aqui, para ficarem após a horta criada)
+    const menuFerramentas = cria_menu_ferramentas();
+    document.body.appendChild(menuFerramentas);
 
+    const temporizador = timer();
+    document.body.appendChild(temporizador);
 
+    const menuPlanta = cria_menu_planta();
+    document.body.appendChild(menuPlanta);
 
+    const label_saldo = cria_label_saldo();
+    document.body.appendChild(label_saldo);
 
-
-
-// ate o DOM estar pronto
-
-const areaPlantio = cria_area_plantio();
-document.body.appendChild(areaPlantio);
-cria_unidades_plantio(areaPlantio);
-
-const menuFerramentas = cria_menu_ferramentas();
-document.body.appendChild(menuFerramentas);
-
-document.addEventListener('DOMContentLoaded', () => {
-const temporizador = timer();
-document.body.appendChild(temporizador);
-});
-
-const menuPlanta = cria_menu_planta();
-document.body.appendChild(menuPlanta);
-
-
-const label_saldo = cria_label_saldo();
-document.body.appendChild(label_saldo);
-
+    
+ 
 
 
 
@@ -413,7 +425,7 @@ areaPlantio.addEventListener('click', (evento) => {
 
 }
 );
-
+ 
 
 
 
@@ -451,3 +463,6 @@ window.DEBUG = {
   }
 };
 console.log('DEBUG pronto: use window.DEBUG');
+
+
+

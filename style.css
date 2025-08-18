@@ -33,7 +33,12 @@ border: 5px solid black;
     justify-content: center;
     color: black;
     align-items: center;
-  
+     width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .unidade-plantio[data-estado_solo = "pedra"]{
