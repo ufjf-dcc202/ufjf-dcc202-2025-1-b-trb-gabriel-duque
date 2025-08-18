@@ -232,6 +232,7 @@ export function matar_planta_unidade(unidade) {
   unidade.dataset.estado_plantio = 'sem_planta';
   unidade.dataset.preparo_solo = 'não_preparado';
   unidade.planta = null;
+  unidade.classList.remove('planta-madura');
 
 
   // remove label se houver
@@ -262,6 +263,12 @@ export function atualiza_hidratacao_planta_unidade(unidade, minutos = 1) {
     // perde água
     planta.hidratacao = Math.max(HIDRATACAO_MIN, planta.hidratacao - HIDRATACAO_DECRESCIMO_POR_MIN * minutos);
   }
+
+console.log('calcula_hidratacao_atual:', {
+    tipo: planta.tipo, vida: planta.vida, umidade, hidratacao: planta.hidratacao
+  });
+
+
 
   // se sem água, começa a perder vida
   if (planta.hidratacao === HIDRATACAO_MIN) {

@@ -5,6 +5,7 @@ import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxa
 import{atualizar_visor, timer, get_tempo_jogo, ajustar_tempo  } from "./timer.js"  
 import {seleciona_planta, plantar, get_planta_selecionada, get_plantas, avanca_fase_unidade, colher} from "./planta.js"
 import {atualiza_tela_saldo, get_saldo} from "./loja.js"
+import { atualiza_hidratacao_planta_unidade } from "./planta.js";
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
 const preparo_solo = ["preparado", "não_preparado"]; // usado para gerir o preparo do solo para conseguir plantar
@@ -428,6 +429,7 @@ setInterval(() => {
       // Filtra apenas unidades com plantas
     todas_unidades.forEach(u => {
       if (u.planta) { 
+        atualiza_hidratacao_planta_unidade(u);
         avanca_fase_unidade(u);
       }
    
@@ -440,6 +442,7 @@ setInterval(() => {
 window.DEBUG = {
   todas_unidades,
   avanca_fase_unidade,           // função importada de planta.js
+  atualiza_hidratacao_planta_unidade,
   get_tempo_jogo: () => get_tempo_jogo(),
   logPrimeiraUnidade: () => {
     const u = todas_unidades[0];
