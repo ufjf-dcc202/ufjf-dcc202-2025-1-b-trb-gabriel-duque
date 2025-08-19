@@ -1,11 +1,11 @@
 // main js
 
 
-import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, pa, picareta, foice, regador } from "./ferramentas.js";
-import { atualizar_visor, timer, get_tempo_jogo, ajustar_tempo } from "./timer.js"
-import { seleciona_planta, tipo_planta, plantar, get_planta_selecionada, get_plantas, avanca_fase_unidade, atualiza_hidratacao_planta_unidade, colher } from "./planta.js"
-import { remove_saldo, get_saldo } from "./loja.js"
-import { aplicar_visual_unidade } from './carrega_img.js';
+import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, pa, picareta, foice, regador } from "./src/ferramentas.js";
+import { atualizar_visor, timer, get_tempo_jogo, ajustar_tempo } from "./src/timer.js"
+import { seleciona_planta, tipo_planta, plantar, get_planta_selecionada, get_plantas, avanca_fase_unidade, atualiza_hidratacao_planta_unidade, colher } from "./src/planta.js"
+import { remove_saldo, get_saldo } from "./src/loja.js"
+import { aplicar_visual_unidade } from './src/carrega_img.js';
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];
 const quantidade_unidade_plantio = 144;

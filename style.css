@@ -305,34 +305,34 @@ h1{
 
 
 .slot-planta[data-tipo_planta="tomate"]::before {
-  background-image: url("./assets/assets_jogo/plantas/tomate.png");
+  background-image: url("./assets/plantas/tomate.png");
 }
 
 .slot-planta[data-tipo_planta="milho"]::before {
-  background-image: url("./assets/assets_jogo/plantas/milho.png");
+  background-image: url("./assets/plantas/milho.png");
 }
 
 .slot-planta[data-tipo_planta="batata"]::before {
-  background-image: url("./assets/assets_jogo/plantas/batata.png");
+  background-image: url("./assets/plantas/batata.png");
 }
 
 
 .slot-ferramenta[data-ferramenta="picareta"]::before {
 
-  background-image: url("./assets/assets_jogo/ferramentas/picareta.png");
+  background-image: url("./assets/ferramentas/picareta.png");
 }
 
 .slot-ferramenta[data-ferramenta="foice"]::before {
 
-  background-image: url("./assets/assets_jogo/ferramentas/foice.png");
+  background-image: url("./assets/ferramentas/foice.png");
 }
 
 .slot-ferramenta[data-ferramenta="regador"]::before {
 
-  background-image: url("./assets/assets_jogo/ferramentas/regador.png");
+  background-image: url("./assets/ferramentas/regador.png");
 }
 
 .slot-ferramenta[data-ferramenta="pa"]::before {
 
-  background-image: url("./assets/assets_jogo/ferramentas/pa.png");
+  background-image: url("./assets/ferramentas/pa.png");
 }

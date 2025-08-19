@@ -3,39 +3,39 @@
 
 // mapa das imagens
 export const mapa_imagens_base = {
-  preparado_umido: '/assets/assets_jogo/chao/solo_limpo_umido.png',
-  preparado_seco: '/assets/assets_jogo/chao/solo_limpo_seco.png',
-  vazio: './assets/assets_jogo/chao/vazio.png', // vazio ou grama
+  preparado_umido: '/assets/chao/solo_limpo_umido.png',
+  preparado_seco: '/assets/chao/solo_limpo_seco.png',
+  vazio: './assets/chao/vazio.png', // vazio ou grama
 };
 
 export const overlay_imagens = {
-  pedra: './assets/assets_jogo/chao/pedrinha.png',
-  erva_daninha: './assets/assets_jogo/chao/erva_daninha_folha4.png',
+  pedra: './assets/chao/pedrinha.png',
+  erva_daninha: './assets/chao/erva_daninha_folha4.png',
 
-  milho: './assets/assets_jogo/plantas/milho.png',
-  milho_fase1: './assets/assets_jogo/plantas/milho_broto.png',
-  milho_fase2: './assets/assets_jogo/plantas/milho_broto2.png',
-  milho_fase3: './assets/assets_jogo/plantas/milho_maduro.png',
-  milho_colhido: './assets/assets_jogo/plantas/milho_colhido.png',
-
-
-  tomate: './assets/assets_jogo/plantas/tomate.png',
-  tomate_fase1: './assets/assets_jogo/plantas/tomate_broto.png',
-  tomate_fase2: './assets/assets_jogo/plantas/tomate_broto2.png',
-  tomate_fase3: './assets/assets_jogo/plantas/tomate_maduro.png',
-  tomate_colhido: './assets/assets_jogo/plantas/tomate_colhido.png',
+  milho: './assets/plantas/milho.png',
+  milho_fase1: './assets/plantas/milho_broto.png',
+  milho_fase2: './assets/plantas/milho_broto2.png',
+  milho_fase3: './assets/plantas/milho_maduro.png',
+  milho_colhido: './assets/plantas/milho_colhido.png',
 
 
-  batata: './assets/assets_jogo/plantas/batata.png',
-  batata_fase1: './assets/assets_jogo/plantas/batata_broto.png',
-  batata_fase2: './assets/assets_jogo/plantas/batata_broto2.png',
-  batata_fase3: './assets/assets_jogo/plantas/batata_madura.png',
-  batata_colhido: './assets/assets_jogo/plantas/batata_colhida.png',
+  tomate: './assets/plantas/tomate.png',
+  tomate_fase1: './assets/plantas/tomate_broto.png',
+  tomate_fase2: './assets/plantas/tomate_broto2.png',
+  tomate_fase3: './assets/plantas/tomate_maduro.png',
+  tomate_colhido: './assets/plantas/tomate_colhido.png',
 
-  picareta: './assets/assets_jogo/ferramentas/picareta.png',
-  pa: './assets/assets_jogo/ferramentas/pa.png',
-  regador: './assets/assets_jogo/ferramentas/regador.png',
-  foice: './assets/assets_jogo/ferramentas/foice.png'
+
+  batata: './assets/plantas/batata.png',
+  batata_fase1: './assets/plantas/batata_broto.png',
+  batata_fase2: './assets/plantas/batata_broto2.png',
+  batata_fase3: './assets/plantas/batata_madura.png',
+  batata_colhido: './assets/plantas/batata_colhida.png',
+
+  picareta: './assets/ferramentas/picareta.png',
+  pa: './assets/ferramentas/pa.png',
+  regador: './assets/ferramentas/regador.png',
+  foice: './assets/ferramentas/foice.png'
 };
 
 
