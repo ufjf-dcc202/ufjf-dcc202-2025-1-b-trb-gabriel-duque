@@ -5,20 +5,15 @@ import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxa
 import{atualizar_visor, timer, get_tempo_jogo, ajustar_tempo  } from "./timer.js"  
 import {seleciona_planta, plantar, get_planta_selecionada, get_plantas, avanca_fase_unidade,atualiza_hidratacao_planta_unidade, colher} from "./planta.js"
 import {atualiza_tela_saldo, get_saldo} from "./loja.js"
-import {  aplicar_visual_unidade } from './carrega_img.js';
+import {  aplicar_visual_unidade , overlay_imagens} from './carrega_img.js';
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
 
 
 
-
-let imagens = null;
-
-
-
-const preparo_solo = ["preparado", "não_preparado"]; // usado para gerir o preparo do solo para conseguir plantar
-const umidade_solo = ["umido", "seco"];
-const estado_plantio = ["com_planta", "sem_planta"];
+// preparo_solo = ["preparado", "não_preparado"]; // usado para gerir o preparo do solo para conseguir plantar
+// umidade_solo = ["umido", "seco"];
+// estado_plantio = ["com_planta", "sem_planta"];
 
 const quantidade_unidade_plantio = 144;
 
@@ -174,7 +169,7 @@ function unidade_plantio_click(unidade_atual) {
       console.log('clicou na unidade vazia', unidade_atual);
       
        if(preparo === 'preparado' && estado_plantio === 'sem_planta' && planta_selecionada){
-           if(planta_selecionada === 'trigo' || planta_selecionada === 'batata' || planta_selecionada === 'milho'  ){
+           if(planta_selecionada === 'tomate' || planta_selecionada === 'batata' || planta_selecionada === 'milho'  ){
                
             plantar(unidade_atual,planta_selecionada);
          return;
@@ -262,7 +257,9 @@ function cria_menu_planta(){
     btn_planta.classList.add('slot-planta');
     btn_planta.dataset.tipo_planta = tipo_planta;
     btn_planta.dataset.pressionado = 'false';
+    
 
+   // aplicar_visual_btn(btn_planta);
     btn_planta.textContent = tipo_planta;
 
 

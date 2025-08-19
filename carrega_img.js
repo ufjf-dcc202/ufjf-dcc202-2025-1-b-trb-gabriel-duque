@@ -1,7 +1,7 @@
 // carrega_img.js 
 
 
-// mapa_imagens.js
+// mapa das imagens
 export const mapa_imagens_base = {
   preparado_umido: '/assets/assets_jogo/chao/solo_limpo_umido.png'  ,
   preparado_seco: '/assets/assets_jogo/chao/solo_limpo_seco.png'  ,
@@ -16,8 +16,32 @@ export const overlay_imagens = {
   milho_fase1: './assets/assets_jogo/plantas/milho_broto.png',
   milho_fase2: './assets/assets_jogo/plantas/milho_broto2.png',
   milho_fase3: './assets/assets_jogo/plantas/milho_maduro.png',
-  milho_colhido: './assets/assets_jogo/plantas/milho_colhido.png'
+  milho_colhido: './assets/assets_jogo/plantas/milho_colhido.png',
+
+
+  tomate: './assets/assets_jogo/plantas/tomate.png',
+  tomate_fase1:'./assets/assets_jogo/plantas/tomate_broto.png',
+  tomate_fase2: './assets/assets_jogo/plantas/tomate_broto2.png',
+  tomate_fase3: './assets/assets_jogo/plantas/tomate_maduro.png',
+  tomate_colhido: './assets/assets_jogo/plantas/tomate_colhido.png',
+
+
+  batata:'./assets/assets_jogo/plantas/batata.png',
+  batata_fase1:'./assets/assets_jogo/plantas/batata_broto.png',
+  batata_fase2: './assets/assets_jogo/plantas/batata_broto2.png',
+  batata_fase3: './assets/assets_jogo/plantas/batata_madura.png',
+  batata_colhido: './assets/assets_jogo/plantas/colhida.png',
 };
+
+
+
+/* export function aplicar_visual_btn(btn){
+  if(!btn) return;
+
+
+} */
+
+
 
 
   // Aplica o visual da unidade DOM a partir dos datasets

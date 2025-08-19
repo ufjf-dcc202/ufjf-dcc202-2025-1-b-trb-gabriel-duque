@@ -4,7 +4,7 @@ import {aplicar_visual_unidade} from "./carrega_img.js"
 
 // Configuração fixa das plantas
 const tipo_planta = {
-  trigo: {
+  tomate: {
     preco_compra: 2,
     preco_venda: 5,
     rendimento: { min: 1, max: 3 }, // pode ser range ??????
