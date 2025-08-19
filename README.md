@@ -25,7 +25,7 @@
 * Regar um canteiro;
 * As plantas com crescimento em números diferentes de fases;
 * Colher plantas com o crescimento máximo (Dê dinheiro para comprar novas sementes);
-* Plantas não regatas morrem;
+* Plantas não regadas morrem;
 
 ## Disciplina
 * DCC202 - Desenvolvimento Web
@@ -45,16 +45,23 @@
 
 * Ferramentas(foice, picareta, pá):
 * https://opengameart.org/content/farming-tool-icons 
+* Criador: Calciumtrice
 
 * Chão(terra clara, terra escura) e Ferramenta(regador):
 * https://opengameart.org/content/simple-farm-tiles
+* Criador: JJA-thechikenwing106
 
 * Plantas:
 * https://opengameart.org/content/lpc-farming-tilesets-magic-animations-and-ui-elements
+* Criador: Daniel Eddeland
 
 * Pedras e Erva_Daninha e Chão(vazio/grama):
 * https://opengameart.org/content/lpc-forest-tiles 
+* Criador: = Rock tiles (CC-BY-SA) = Based on rock in LPC made by Lanea Zimmerman (Sharm)
+* = Mushrooms, cave flower, low grass, ferns, leaves and flowers (CC-BY-SA) =Based on Hyptosis trees_plants_0.png
+* = Tall grass (CC-BY-SA) = By Tuomo Untinen
+* = Grass and flower tiles (CC-BY-SA) = Based on LPC's Grass made by Lanea Zimmerman (Sharm)
 
 
 ## Link
-* 
+* https://ufjf-dcc202.github.io/ufjf-dcc202-2025-1-b-trb-gabriel-duque/

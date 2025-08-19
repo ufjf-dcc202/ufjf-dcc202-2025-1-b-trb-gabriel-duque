@@ -23,6 +23,19 @@ export const tipo_planta = {
 
 
 
+// parâmetros de ajuste
+const HIDRATACAO_INCREMENTO_POR_MIN = 2;   // quando o solo tá 'umido', o quanto aumenta por minuto a hidaratacao da planta
+const HIDRATACAO_DECRESCIMO_POR_MIN = 5;   // quando o solo tá 'seco', o quanto diminui por minuto a hidratacao da planta
+const HIDRATACAO_MIN = 0;
+const HIDRATACAO_MAX = 100;
+const DANO_DESIDRATADA = 5;
+
+
+const TOTAL_MINUTOS = 24 * 60; // 1440, para tratar o circulo do relógio 23-> 00
+
+let tipo_selecionado = null;
+
+
 
 
 
@@ -39,28 +52,15 @@ function cria_planta(tipo) {
 }
 
 
-// parâmetros de ajuste
-const HIDRATACAO_INCREMENTO_POR_MIN = 2;   // quando o solo tá 'umido', o quanto aumenta por minuto a hidaratacao da planta
-const HIDRATACAO_DECRESCIMO_POR_MIN = 5;   // quando o solo tá 'seco', o quanto diminui por minuto a hidratacao da planta
-const HIDRATACAO_MIN = 0;
-const HIDRATACAO_MAX = 100;
-const DANO_DESIDRATADA = 5;
-
-
-const TOTAL_MINUTOS = 24 * 60; // 1440, para tratar o circulo do relógio 23-> 00
-
-let tipo_selecionado = null;
 
 export function get_plantas() {
   return Object.keys(tipo_planta);
 }
 
 
-
 export function get_planta_selecionada() {
   return tipo_selecionado;
 }
-
 
 
 export function plantar(unidade_plantio, tipo) {
@@ -98,10 +98,6 @@ export function seleciona_planta(tipo) {
     console.log('Não existe planta com do tipo', tipo);
   }
 }
-
-
-
-
 
 
 export function calcula_fase_atual(planta) {
@@ -146,7 +142,6 @@ export function calcula_fase_atual(planta) {
 }
 
 
-
 export function avanca_fase_unidade(unidade) {
   if (!unidade || !unidade.planta) {
     console.log('avanca_fase_unidade: sem planta na unidade', unidade && unidade.dataset.posicao);
@@ -161,8 +156,7 @@ export function avanca_fase_unidade(unidade) {
   if (info.maduro) unidade.classList.add("planta-madura");
   else unidade.classList.remove("planta-madura");
 
-
-
+  // Debug interessante para ver evol
   console.log('avanca_fase_unidade: aplicado', {
     posicao: unidade.dataset.posicao,
     tipo: unidade.dataset.tipo_planta,
@@ -172,7 +166,6 @@ export function avanca_fase_unidade(unidade) {
 
   return info;
 }
-
 
 
 export function colher(unidade) {
@@ -204,8 +197,6 @@ export function colher(unidade) {
   unidade.style.borderColor = "";
 
 
-
-
   const label = unidade.querySelector('.planta-label');
   if (label) label.remove();
 
@@ -214,13 +205,6 @@ export function colher(unidade) {
   console.log(`colhido ${tipo} por R$${preco} na unidade`, unidade.dataset.posicao);
   return preco;
 }
-
-
-
-
-
-
-
 
 
 // mata a planta e atualiza visual/dados
@@ -246,9 +230,7 @@ export function matar_planta_unidade(unidade) {
 
 }
 
-
 // atualiza hidratação da unidade com base no tempo decorrido
-
 
 export function atualiza_hidratacao_planta_unidade(unidade, minutos = 1) {
   if (!unidade || !unidade.planta) return;
@@ -261,8 +243,6 @@ export function atualiza_hidratacao_planta_unidade(unidade, minutos = 1) {
 
   planta.hidratacao = Number(planta.hidratacao ?? 50);
   planta.vida = Number(planta.vida ?? 100);
-
-
 
   const umidade = unidade.dataset.umidade_solo || 'seco';
 
@@ -278,9 +258,6 @@ export function atualiza_hidratacao_planta_unidade(unidade, minutos = 1) {
   console.log('calcula_hidratacao_atual:', {
     tipo: planta.tipo, vida: planta.vida, umidade, hidratacao: planta.hidratacao
   });
-
-
-
 
   //  sem água, começa a perder vida
   if (planta.hidratacao === HIDRATACAO_MIN) {

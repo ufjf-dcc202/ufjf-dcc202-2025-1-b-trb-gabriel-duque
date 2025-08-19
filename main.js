@@ -12,13 +12,8 @@ const quantidade_unidade_plantio = 144;
 const tabuleiro_area_plantio = new Array(quantidade_unidade_plantio).fill('vazio');
 const todas_unidades = [];
 
-// checagem simples: detecta quando o minuto total muda e atualiza todas unidades
+// detecta quando o minuto total muda e atualiza todas unidades
 let ultimo_tempo = Number(get_tempo_jogo());
-
-
-
-
-
 
 
 
@@ -40,9 +35,6 @@ function gera_estado_solo_aleatorio() {
 
   return estado_solo[idx_aleatorio];
 }
-
-
-
 
 // funcao que cria as unidades de plantio de acordo com a quantidade desejada
 function cria_unidades_plantio(area_plantio) {
@@ -78,9 +70,6 @@ function cria_unidades_plantio(area_plantio) {
   }
 
 }
-
-
-
 
 //funcao para lidar com o clique na area de plantio
 
@@ -151,40 +140,26 @@ function unidade_plantio_click(unidade_atual) {
       break;
   }
 
-
-
 }
 
-
-
-
-// 1) cria areaPlantio UMA vez e global
+//  cria areaPlantio UMA vez 
 const areaPlantio = cria_area_plantio();
 document.body.appendChild(areaPlantio);
 
-// 2) cria unidades 
-
+//  cria unidades 
 cria_unidades_plantio(areaPlantio);
-
-
 
 areaPlantio.addEventListener('click', (evento) => {
   const cel_plantio = evento.target.closest('.unidade-plantio');
   if (!cel_plantio) return;
   unidade_plantio_click(cel_plantio);
 
-
-
-
 }
 );
-
 
 // --------------------------------------------------------  
 //      GERACAO DA MENU FERRAMENTA                      
 //---------------------------------------------------------
-
-
 
 //funcao que cria o menu de ferrametnas
 function cria_menu_ferramentas() {
@@ -203,11 +178,6 @@ function cria_menu_ferramentas() {
     btn_ferramenta.dataset.ferramenta = nome_ferramenta;
     btn_ferramenta.dataset.pressionado = 'false';
 
-
-
-
-
-
     inventario_ferramenta.appendChild(btn_ferramenta);
   }
 
@@ -216,7 +186,6 @@ function cria_menu_ferramentas() {
   inventario_ferramenta.addEventListener('click', (evento) => {
     const botao = evento.target.closest('.slot-ferramenta');
     if (!botao) return; // não clicou em botão
-
 
 
     // se clicou no mesmo botão, alterna (desmarca)
@@ -229,13 +198,12 @@ function cria_menu_ferramentas() {
       return;
     }
 
-
     if (botao_selecionado) {  //quando ja existe botao selecionado
       botao_selecionado.dataset.pressionado = "false";
       botao_selecionado.classList.remove('selecionado'); // css
     }
 
-    // Seleciona o botão clicado
+    // sseleciona o botão clicado
     botao.dataset.pressionado = 'true';
     botao.classList.add('selecionado');
     botao_selecionado = botao;
@@ -245,12 +213,7 @@ function cria_menu_ferramentas() {
     console.log('Ferramenta selecionada:', botao.dataset.ferramenta);
   });
 
-
-
-
-  // ver e modificar essa parte antes de dar commit
-
-  // Detectar clique no "vazio" (desmarca seleção)
+  //  clique no "vazio" (desmarca seleção)
   document.addEventListener('click', (evento) => {
     const clicou_em_ferramenta = evento.target.closest('.slot-ferramenta');
     const clicou_em_area_plantio = evento.target.closest('.area-plantio');
@@ -266,34 +229,19 @@ function cria_menu_ferramentas() {
     }
   });
 
-
-
-
   return inventario_ferramenta;
 
 }
 
 
-
-// 3) menus/timers/outros (coloca aqui, para ficarem após a horta criada)
+//  menu ferramenta
 const menuFerramentas = cria_menu_ferramentas();
 document.body.appendChild(menuFerramentas);
-
-
-
-
-
-
-
 
 
 // --------------------------------------------------------  
 //      CRIACAO DO MENU PLANTA                       
 //---------------------------------------------------------
-
-
-
-
 
 function cria_menu_planta() {
   const menu_planta = document.createElement('div');
@@ -311,14 +259,6 @@ function cria_menu_planta() {
     btn_planta.classList.add('slot-planta');
     btn_planta.dataset.tipo_planta = tipo_planta;
     btn_planta.dataset.pressionado = 'false';
-
-
-
-
-
-
-
-
 
     menu_planta.appendChild(btn_planta);
   }
@@ -338,12 +278,12 @@ function cria_menu_planta() {
       console.log('Planta inválida');
       return;
     }
-    // checar se o jogador tem saldo suficiente
+    // confere se o jogador tem saldo suficiente
     if (get_saldo() >= planta.preco_compra) {
-      // deduz o valor
+      // remove o dinheiro da compra (valor)
       remove_saldo(planta.preco_compra);
 
-      // seleciona a planta (para o jogador ter a chance de plantar)
+      // seleciona a planta (para o jogador plantar)
       seleciona_planta(tipo);
       // se clicou no mesmo botão, alterna (desmarca)
       if (botao_selecionado === botao) {
@@ -354,7 +294,6 @@ function cria_menu_planta() {
         console.log('Nenhuma planta selecionada');
         return;
       }
-
 
       if (botao_selecionado) {  //quando ja existe botao selecionado
         botao_selecionado.dataset.pressionado = "false";
@@ -392,7 +331,6 @@ function cria_menu_planta() {
     }
   });
 
-
   return menu_planta;
 
 }
@@ -401,10 +339,6 @@ function cria_menu_planta() {
 const menuPlanta = cria_menu_planta();
 document.body.appendChild(menuPlanta);
 
-
-
-
-
 // --------------------------------------------------------  
 //      CRIACAO DO TIMER E BOTOES DO TIMER                       
 //---------------------------------------------------------
@@ -412,7 +346,6 @@ document.body.appendChild(menuPlanta);
 
 const temporizador = timer();
 document.body.appendChild(temporizador);
-
 
 
 function cria_btn_timer(texto_botao) {
@@ -425,12 +358,12 @@ function cria_btn_timer(texto_botao) {
 for (let i = 0; i < 2; i++) {
   if (i == 0) {
     const btn_timer_progride_muito = cria_btn_timer(">>");
-    btn_timer_progride_muito.setAttribute('id', 'btn-timer-progride-muito'); //mudar os nomes
+    btn_timer_progride_muito.setAttribute('id', 'btn-timer-progride-muito'); 
 
     document.body.appendChild(btn_timer_progride_muito);
   } else {
     const btn_timer_progride = cria_btn_timer(">")
-    btn_timer_progride.setAttribute('id', 'btn-timer-progride'); //mudar o nome
+    btn_timer_progride.setAttribute('id', 'btn-timer-progride'); 
 
     document.body.appendChild(btn_timer_progride);
   }
@@ -460,14 +393,9 @@ document.addEventListener('click', (evento) => {
   atualizar_visor();
 });
 
-
-
-
 // --------------------------------------------------------  
 //      SALDO                     
 //---------------------------------------------------------
-
-
 
 
 function cria_label_saldo() {
@@ -482,22 +410,9 @@ document.body.appendChild(label_saldo);
 
 
 
-
-
-
-
-
-
-
-
-
-
 // --------------------------------------------------------  
 //      ATUALIZADOR  1000ms -> 1s                     
 //---------------------------------------------------------
-
-
-
 
 setInterval(() => {
   const agora = Number(get_tempo_jogo());
@@ -515,15 +430,12 @@ setInterval(() => {
 
     });
   }
-}, 1000); // checa a cada segundo; só executa o corpo quando o minuto mudar
-
-
+}, 1000); // checa a cada segundo, só executa o corpo quando o minuto mudar
 
 
 // --------------------------------------------------------  
 //     DEBUG                       
 //---------------------------------------------------------
-
 
 
 window.DEBUG = {
@@ -538,6 +450,3 @@ window.DEBUG = {
   }
 };
 console.log('DEBUG pronto: use window.DEBUG');
-
-
-
