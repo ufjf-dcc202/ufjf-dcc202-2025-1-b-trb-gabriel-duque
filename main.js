@@ -1,7 +1,7 @@
 // main js
 
 
-import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxada, picareta, tesoura, regador } from "./ferramentas.js";
+import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, pa, picareta, foice, regador } from "./ferramentas.js";
 import{atualizar_visor, timer, get_tempo_jogo, ajustar_tempo  } from "./timer.js"  
 import {seleciona_planta, plantar, get_planta_selecionada, get_plantas, avanca_fase_unidade,atualiza_hidratacao_planta_unidade, colher} from "./planta.js"
 import {atualiza_tela_saldo, get_saldo} from "./loja.js"
@@ -42,7 +42,6 @@ function cria_menu_ferramentas() {
     btn_ferramenta.dataset.ferramenta = nome_ferramenta;
     btn_ferramenta.dataset.pressionado = 'false';
 
-    btn_ferramenta.textContent = nome_ferramenta;
 
 
 
@@ -196,9 +195,9 @@ function unidade_plantio_click(unidade_atual) {
         return;
       }
 
-      if (ferramenta_selecionada === 'enxada') {
+      if (ferramenta_selecionada === 'pa') {
         if (preparo === 'não_preparado') {
-          enxada(unidade_atual);
+          pa(unidade_atual);
         } else {
           console.log('para preparar o solo, ele precisa estar vazio e não preparado');
         }
@@ -210,12 +209,12 @@ function unidade_plantio_click(unidade_atual) {
 
     case 'erva_daninha':
       console.log('clicou na erva daninha', unidade_atual);
-      if (ferramenta_selecionada === 'tesoura') {
+      if (ferramenta_selecionada === 'foice') {
 
 
-        tesoura(unidade_atual);
+        foice(unidade_atual);
       } else {
-        console.log('para cortar a erva daninha use uma tesoura');
+        console.log('para cortar a erva daninha use uma foice');
       }
       break;
   }

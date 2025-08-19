@@ -62,7 +62,7 @@ h1{
   background-position: center, center;
   background-size: 60% 60%, 100% 100%;
   image-rendering: pixelated;
-  /* mantém pixels nítidos quando aumentar */
+  
 }
 
 
@@ -90,18 +90,55 @@ h1{
 }
 
 .slot-ferramenta {
-  width: 60px;
-  height: 60px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  width: 72px;
+  height: 82px;
+  position: relative;      /* para o ::before absoluto */
+  overflow: hidden;
+  padding: 0;
+  display: inline-block;   /* não precisa flex aqui */
   border: 2px solid transparent;
   border-radius: 8px;
   background: white;
   cursor: pointer;
-  transition: transform .08s ease, border-color .12s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+
+
+
+
+
+.slot-ferramenta::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 78%;
+  height: 58%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  image-rendering: pixelated;
+  z-index: 1;
+}
+
+/* Faixa de nome (usa data-ferramenta) */
+.slot-ferramenta::after {
+  content: attr(data-ferramenta);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background: #2e7d32;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 2px;
+  font-weight: 600;
+  text-transform: capitalize;
+  line-height: 1;
+  z-index: 2;
 }
 
 .slot-ferramenta:hover {
@@ -219,7 +256,6 @@ h1{
   padding: 4px 2px;
   box-sizing: border-box;
   z-index: 2;
-  /* acima da imagem */
   text-transform: capitalize;
   font-weight: 600;
   line-height: 1;
@@ -242,7 +278,7 @@ h1{
 
 
 
-
+/*   TIRA ESSA CARAIO   quro DORMIRRRRRRRRRRRR*/
 /* destaque visual quando madura */
 .unidade-plantio.planta-madura .planta-badge {
   background: linear-gradient(90deg, #e67e22, #d35400);
@@ -300,4 +336,25 @@ h1{
 
 .slot-planta[data-tipo_planta="batata"]::before {
   background-image: url("./assets/assets_jogo/plantas/batata.png");
+}
+
+
+.slot-ferramenta[data-ferramenta="picareta"]::before {
+
+  background-image: url("./assets/assets_jogo/ferramentas/picareta.png");
+}
+
+.slot-ferramenta[data-ferramenta="foice"]::before {
+
+  background-image: url("./assets/assets_jogo/ferramentas/foice.png");
+}
+
+.slot-ferramenta[data-ferramenta="regador"]::before {
+
+  background-image: url("./assets/assets_jogo/ferramentas/regador.png");
+}
+
+.slot-ferramenta[data-ferramenta="pa"]::before {
+
+  background-image: url("./assets/assets_jogo/ferramentas/pa.png");
 }

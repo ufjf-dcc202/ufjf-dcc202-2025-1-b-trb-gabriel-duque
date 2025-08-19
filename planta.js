@@ -204,6 +204,7 @@ export function colher(unidade) {
   unidade.classList.remove('planta-madura', 'preparado', 'umido');
   unidade.removeAttribute('data-tipo_planta');
   unidade.removeAttribute('data-fase_planta');
+  unidade.style.borderColor = "";
 
 
 

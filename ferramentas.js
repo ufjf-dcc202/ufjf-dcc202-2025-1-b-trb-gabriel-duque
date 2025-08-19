@@ -5,8 +5,8 @@ import { aplicar_visual_unidade } from "./carrega_img.js";
 // ferramentas.js
 const ferramentas = [
   "picareta",
-  "tesoura",
-  "enxada",
+  "foice",
+  "pa",
   "regador"
 
 ];
@@ -40,14 +40,14 @@ export function seleciona_ferramenta(ferramenta) {
   }
 }
 
-export function tesoura(unidade_plantio) {
+export function foice(unidade_plantio) {
   const estado = unidade_plantio.dataset.estado_solo;
 
   if (estado === 'erva_daninha') {
     atualiza_estado_solo(unidade_plantio, 'vazio');
-    console.log('usou a tesoura e cortou a erva daninha')
+    console.log('usou a foice e cortou a erva daninha')
   } else {
-    console.log('tesoura nao funciona aqui')
+    console.log('foice nao funciona aqui')
   }
 }
 
@@ -66,13 +66,13 @@ export function picareta(unidade_plantio) {
   }
 }
 
-export function enxada(unidade_plantio) {
+export function pa(unidade_plantio) {
   const estado = unidade_plantio.dataset.estado_solo;
   const preparo = unidade_plantio.dataset.preparo_solo;
 
   if (estado === 'vazio' && preparo === 'não_preparado') {
     atualiza_preparo_solo(unidade_plantio, 'preparado');
-    console.log('usou a enxada na unidade de plantio, esta pronto para plantar');
+    console.log('usou a pa na unidade de plantio, esta pronto para plantar');
   } else {
     console.log('solo já esta preparado ou não está vazio');
   }
