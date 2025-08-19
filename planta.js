@@ -200,13 +200,13 @@ export function avanca_fase_unidade(unidade) {
 
   unidade.dataset.estado_plantio = 'sem_planta';
   unidade.dataset.preparo_solo = 'não_preparado';
-  unidade.dataset.umidade_solo = 'seco';
-  unidade.classList.remove('planta-madura','preparado');
+  unidade.dataset.umidade_solo = 'seco';   // talvez n faça sentido setar seco agr
+  unidade.classList.remove('planta-madura','preparado','umido');
   unidade.removeAttribute('data-tipo_planta');
   unidade.removeAttribute('data-fase_planta');
 
   // talvez tirar, acho q n precisa, pq ja tiro em outro lugar
-unidade.querySelectorAll('.overlay-planta').forEach(n => n.remove());
+//unidade.querySelectorAll('.overlay-planta').forEach(n => n.remove());
   
 
 
@@ -235,8 +235,11 @@ export function matar_planta_unidade(unidade) {
   // limpa dataset e objeto planta
   unidade.dataset.estado_plantio = 'sem_planta';
   unidade.dataset.preparo_solo = 'não_preparado';
+   unidade.dataset.umidade_solo = 'seco';
   unidade.planta = null;
-  unidade.classList.remove('planta-madura');
+  unidade.classList.remove('planta-madura','preparado','umido');
+  unidade.removeAttribute('data-tipo_planta');
+  unidade.removeAttribute('data-fase_planta');
 
 
   
