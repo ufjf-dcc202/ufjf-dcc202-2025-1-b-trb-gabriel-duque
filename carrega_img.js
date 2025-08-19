@@ -30,7 +30,12 @@ export const overlay_imagens = {
   batata_fase1: './assets/assets_jogo/plantas/batata_broto.png',
   batata_fase2: './assets/assets_jogo/plantas/batata_broto2.png',
   batata_fase3: './assets/assets_jogo/plantas/batata_madura.png',
-  batata_colhido: './assets/assets_jogo/plantas/colhida.png',
+  batata_colhido: './assets/assets_jogo/plantas/batata_colhida.png',
+
+  picareta: './assets/assets_jogo/ferramentas/picareta.png',
+  pa: './assets/assets_jogo/ferramentas/pa.png',
+  regador: './assets/assets_jogo/ferramentas/regador.png',
+  foice: './assets/assets_jogo/ferramentas/foice.png'
 };
 
 
