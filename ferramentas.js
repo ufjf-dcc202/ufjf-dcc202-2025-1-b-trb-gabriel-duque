@@ -88,10 +88,20 @@ export function regador(unidade_plantio) {
       atualiza_umidade(unidade_plantio,'umido');
       console.log('usou o regador na unidade de plantio, o solo esta umido');
 
-      if(unidade_plantio.planta) // se tem planta, hidrata ela
-        {
-        unidade_plantio.planta.hidratacao = 100;
-      }
+      
+      // depois de 30s, volta pra seco automaticamente
+  setTimeout(() => {
+    // segurança: só muda se ainda estiver úmido
+    if (unidade_plantio.dataset.umidade_solo === 'umido') {
+      unidade_plantio.dataset.umidade_solo = 'seco';
+      aplicar_visual_unidade(unidade_plantio);
+       unidade_plantio.classList.remove('umido');
+         unidade_plantio.style.borderColor = ""; 
+      console.log('tempo do regador acabou: solo voltou a seco');
+    }
+  }, 30_000); // 30 segundos
+
+
     } else {
       console.log('solo precisa estar vazio para regar e estar seco')
     }

@@ -48,7 +48,7 @@ const HIDRATACAO_INCREMENTO_POR_MIN = 2;   // quando o solo tá 'umido', o quant
 const HIDRATACAO_DECRESCIMO_POR_MIN = 5;   // quando o solo tá 'seco', o quanto diminui por minuto a hidratacao da planta
 const HIDRATACAO_MIN = 0;
 const HIDRATACAO_MAX = 100;
-const DANO_DESIDRATADA = 10;
+const DANO_DESIDRATADA = 5;
 
 
 const TOTAL_MINUTOS = 24 * 60; // 1440, para tratar o circulo do relógio 23-> 00
@@ -205,9 +205,7 @@ export function avanca_fase_unidade(unidade) {
   unidade.removeAttribute('data-tipo_planta');
   unidade.removeAttribute('data-fase_planta');
 
-  // talvez tirar, acho q n precisa, pq ja tiro em outro lugar
-//unidade.querySelectorAll('.overlay-planta').forEach(n => n.remove());
-  
+
 
 
    const label = unidade.querySelector('.planta-label');
@@ -258,9 +256,15 @@ export function atualiza_hidratacao_planta_unidade(unidade, minutos = 1) {
   if (!unidade || !unidade.planta) return;
   const planta = unidade.planta;
 
-  // 
-  planta.hidratacao = Number(planta.hidratacao || 50);
-  planta.vida = Number(planta.vida || 100);
+  const prev = Number(planta.hidratacao ?? 50);
+console.log('[HIDRA DEBUG]', unidade.dataset.posicao || '?', 'prev=', prev,
+            'minutos=', minutos, 'inc/min=', HIDRATACAO_INCREMENTO_POR_MIN);
+
+  
+  planta.hidratacao = Number(planta.hidratacao ?? 50);
+  planta.vida = Number(planta.vida ?? 100);
+
+
 
   const umidade = unidade.dataset.umidade_solo || 'seco';
 
@@ -276,6 +280,7 @@ console.log('calcula_hidratacao_atual:', {
     tipo: planta.tipo, vida: planta.vida, umidade, hidratacao: planta.hidratacao
   });
 
+console.log('[HIDRA RESULT]', unidade.dataset.posicao || '?', 'new=', planta.hidratacao);
 
 
   // se sem água, começa a perder vida
