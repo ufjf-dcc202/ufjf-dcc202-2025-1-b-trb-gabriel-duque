@@ -75,7 +75,7 @@ body{
   display: flex;
   gap: 8px;
   padding: 8px;
-  background: rgba(0,0,0,0.05);
+  background: rgb(78, 19, 19);
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
@@ -139,14 +139,14 @@ body{
 
 .menu-planta{
   position: absolute;
- 
+  
    top: 120px;
    left: 20px;
    display: flex;
             flex-wrap: wrap;
             gap: 8px;
             padding: 8px;
-            background: rgba(255,255,255,0.9);
+              background: rgb(78, 19, 19);
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             width: auto;
@@ -155,45 +155,54 @@ body{
 
 /* botão */
 .slot-planta {
-  width: 60px;
-  height: 60px;
+  width: 72px;
+  height: 82px;              
   border: 2px solid transparent;
   border-radius: 8px;
   background: white;
   cursor: pointer;
   position: relative;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  overflow: hidden; /* impede imagem de passar da borda */
+  overflow: hidden;
+  padding: 0;
+  display: inline-block;
+  vertical-align: middle;
+  font-family: sans-serif;
 }
 
-/* imagem ocupa a parte de cima */
+
 .slot-planta::before {
   content: "";
   position: absolute;
-  top: 0px;
-  bottom: 5px;
+  top: 6px;               
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;      /* proporcional ao botão */
-  height: 70%;     /* ocupa só a parte superior */
-  background-size: contain;
+  width: 78%;               
+  height: 58%;              
+  background-size: contain; /* mantém proporção */
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center top;
+  z-index: 1;
+  image-rendering: pixelated;
 }
 
 /* nome da planta em faixa fixa */
 .slot-planta::after {
-  content: attr(data-tipo_planta); 
+  content: attr(data-tipo_planta);
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   text-align: center;
-  background: rgba(0,0,0,0.7);  /* faixa escura */
+  background: #2e7d32;    
   color: white;
   font-size: 12px;
-  padding: 2px 0;
+  padding: 4px 2px;
   box-sizing: border-box;
+  z-index: 2;               /* acima da imagem */
+  text-transform: capitalize;
+  font-weight: 600;
+  line-height: 1;
 }
 
 

@@ -269,7 +269,7 @@ function cria_menu_planta(){
     
 
   
-    btn_planta.textContent = tipo_planta;
+   
 
 
 
