@@ -342,7 +342,7 @@ return menu_planta;
   console.log('clicou', btn.id, 'tempo antes =', get_tempo_jogo(), 'tipo=', typeof get_tempo_jogo());
 
 
-  if (btn.id === 'btn-timer-regride') {
+  if (btn.id === 'btn-timer-progride-muito') {
     ajustar_tempo(60); // avança 60 minutos (no jogo label do jogo)
   } else if (btn.id === 'btn-timer-progride') {
     ajustar_tempo(10); //avança 10 minuto (no label do jogo)
@@ -395,10 +395,10 @@ function cria_label_saldo(){
 
 for(let i=0; i< 2; i++){
   if(i== 0){
-const btn_timer_regride =  cria_btn_timer(">>");
-  btn_timer_regride.setAttribute('id', 'btn-timer-regride'); //mudar os nomes
+const btn_timer_progride_muito =  cria_btn_timer(">>");
+  btn_timer_progride_muito.setAttribute('id', 'btn-timer-progride-muito'); //mudar os nomes
 
-  document.body.appendChild(btn_timer_regride);
+  document.body.appendChild(btn_timer_progride_muito);
   } else {
     const btn_timer_progride = cria_btn_timer(">")
     btn_timer_progride.setAttribute('id', 'btn-timer-progride'); //mudar o nome
