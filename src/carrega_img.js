@@ -3,8 +3,8 @@
 
 // mapa das imagens
 export const mapa_imagens_base = {
-  preparado_umido: '/assets/chao/solo_limpo_umido.png',
-  preparado_seco: '/assets/chao/solo_limpo_seco.png',
+  preparado_umido: './assets/chao/solo_limpo_umido.png',
+  preparado_seco: './assets/chao/solo_limpo_seco.png',
   vazio: './assets/chao/vazio.png', // vazio ou grama
 };
 
