@@ -3,7 +3,7 @@ import { vender } from "./loja.js"
 import { aplicar_visual_unidade } from "./carrega_img.js"
 
 // Configuração fixa das plantas
-const tipo_planta = {
+export const tipo_planta = {
   tomate: {
     preco_compra: 2,
     preco_venda: 5,

@@ -3,9 +3,9 @@
 
 import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, pa, picareta, foice, regador } from "./ferramentas.js";
 import{atualizar_visor, timer, get_tempo_jogo, ajustar_tempo  } from "./timer.js"  
-import {seleciona_planta, plantar, get_planta_selecionada, get_plantas, avanca_fase_unidade,atualiza_hidratacao_planta_unidade, colher} from "./planta.js"
-import {atualiza_tela_saldo, get_saldo} from "./loja.js"
-import { aplicar_visual_unidade , overlay_imagens} from './carrega_img.js';
+import {seleciona_planta, tipo_planta, plantar, get_planta_selecionada, get_plantas, avanca_fase_unidade,atualiza_hidratacao_planta_unidade, colher} from "./planta.js"
+import {remove_saldo, atualiza_tela_saldo, get_saldo} from "./loja.js"
+import { aplicar_visual_unidade } from './carrega_img.js';
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  
 
@@ -282,7 +282,23 @@ function cria_menu_planta(){
   menu_planta.addEventListener('click', (evento) => {
     const botao = evento.target.closest('.slot-planta');
     if (!botao) return; // não clicou em botão
+      
 
+    
+    const tipo = botao.dataset.tipo_planta;
+    const planta = tipo_planta[tipo];
+   
+      if (!planta) {
+        console.log('Planta inválida');
+        return;
+    }
+      // checar se o jogador tem saldo suficiente
+    if (get_saldo() >= planta.preco_compra) {
+        // deduz o valor
+        remove_saldo(planta.preco_compra);
+
+        // seleciona a planta (para o jogador ter a chance de plantar)
+        seleciona_planta(tipo);
     // se clicou no mesmo botão, alterna (desmarca)
     if (botao_selecionado === botao) {
       botao.dataset.pressionado = 'false';
@@ -307,6 +323,11 @@ function cria_menu_planta(){
     //atualiza qual planta esta seleliconada
     seleciona_planta(botao.dataset.tipo_planta);
       console.log('Planta selecionada:', botao.dataset.tipo_planta);
+       console.log(`Comprou a semente de ${tipo} por R$${planta.preco_compra.toFixed(2)}!`);
+     }
+      else{
+        console.log(`Saldo insuficiente para comprar ${tipo}.`);
+      }
 });
 
 // clique fora do menu vai desmarcar a selecao do botao da planta
