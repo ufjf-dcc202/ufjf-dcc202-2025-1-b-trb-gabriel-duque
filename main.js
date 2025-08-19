@@ -5,7 +5,7 @@ import { get_ferramentas, get_ferramenta_selecionada, seleciona_ferramenta, enxa
 import{atualizar_visor, timer, get_tempo_jogo, ajustar_tempo  } from "./timer.js"  
 import {seleciona_planta, plantar, get_planta_selecionada, get_plantas, avanca_fase_unidade,atualiza_hidratacao_planta_unidade, colher} from "./planta.js"
 import {atualiza_tela_saldo, get_saldo} from "./loja.js"
-import {  aplicar_visual_unidade , overlay_imagens} from './carrega_img.js';
+import { aplicar_visual_btn, aplicar_visual_unidade , overlay_imagens} from './carrega_img.js';
 
 const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
 
@@ -259,7 +259,7 @@ function cria_menu_planta(){
     btn_planta.dataset.pressionado = 'false';
     
 
-   // aplicar_visual_btn(btn_planta);
+    aplicar_visual_btn(btn_planta);
     btn_planta.textContent = tipo_planta;
 
 

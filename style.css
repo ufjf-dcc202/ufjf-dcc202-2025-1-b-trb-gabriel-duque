@@ -30,6 +30,7 @@ body{
   grid-template-columns: repeat(12, var(--tile_size));
   border: 5px solid black;
   box-sizing: border-box;
+  background-color: rgba(26, 96, 30, 0.961);
 }
 
 
@@ -37,12 +38,12 @@ body{
 .unidade-plantio{
   position: relative; /* necessário para badges/overlays absolutos */
   box-sizing: border-box;
-  border: 1px solid red;
+  border: 1px solid rgb(80, 18, 18);
 
   /* não precisa width/height se grid está controlando via template rows/cols */
   width: auto;
   height: auto;
-
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -206,18 +207,3 @@ body{
 .tile-overlay { z-index: 2; display: block; }
 .planta-badge { z-index: 3; pointer-events: none; font-weight: bold; }
 
-
-/* .unidade-plantio > overlay-planta{
-/*  posicionamento: centraliza horizontal e fixa na base (bottom) — evita "cortar" pela parte de cima 
-    position: 'absolute';
-    left : '50%';
-    bottom : '4%';       /*   pequeno offset para não encostar na borda 
-    transform : 'translateX(-50%)';
-    width : 'auto';
-    height: '85%';       /*  controla o tamanho visual da planta (ajuste aqui) 
-    max-width: '100%';
-    max-height: '100%';
-    object-fit: 'contain';
-    pointer-events: 'none';
-    image-rendering: 'pixelated';
-} */

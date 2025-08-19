@@ -35,11 +35,32 @@ export const overlay_imagens = {
 
 
 
-/* export function aplicar_visual_btn(btn){
+ export function aplicar_visual_btn(btn){
   if(!btn) return;
+  // pega tamanho_tile do :root (se existir), senão usa 48px
+  const estilo_root = getComputedStyle(document.documentElement);
+  const tamanho_tile = (estilo_root.getPropertyValue('--tile_size') || '48px').trim();
 
+  // garante dimensões & posicionamento (mas agora deixamos a maior parte para o CSS)
+  btn.style.width = tamanho_tile;
+  btn.style.height = tamanho_tile;
+  btn.style.position = btn.style.position || 'relative';
+  btn.style.overflow = 'hidden';
+  btn.style.imageRendering = 'pixelated';
+   
+  tipo = btn.dataset.tipo_planta;
 
-} */
+  let chave_base = '';
+ if(slot-planta && tipo){
+   const img = document.createElement('img');
+    img.className = 'overlay-btn-planta';
+    img.src = overlay_imagens[estado === 'tomate' ? 'tomate' ? 'batata' : 'milho'];
+    
+    img.style.pointerEvents = 'none';
+    unidade.appendChild(img);
+ }
+
+} 
 
 
 

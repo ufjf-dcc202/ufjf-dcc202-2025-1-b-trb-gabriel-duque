@@ -154,6 +154,6 @@ function atualiza_umidade(unidade, nova_umidade){
   unidade.dataset[chave] = nova_umidade;
 
   aplicar_visual_unidade(unidade);
-  unidade.style.borderRadius = '10px';
+
   unidade.style.borderColor = 'blue';
 }
