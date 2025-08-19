@@ -1,6 +1,6 @@
-import {get_tempo_jogo} from "./timer.js"
-import {vender} from "./loja.js"
-import {aplicar_visual_unidade} from "./carrega_img.js"
+import { get_tempo_jogo } from "./timer.js"
+import { vender } from "./loja.js"
+import { aplicar_visual_unidade } from "./carrega_img.js"
 
 // Configuração fixa das plantas
 const tipo_planta = {
@@ -16,11 +16,11 @@ const tipo_planta = {
     rendimento: { min: 2, max: 5 },
     tempo_crescimento: [15, 30, 45],
   },
-  milho:{
-   preco_compra: 4,
-   preco_venda: 7,
-   rendimento: {min:3, max:7},
-   tempo_crescimento: [20,40,60],
+  milho: {
+    preco_compra: 4,
+    preco_venda: 7,
+    rendimento: { min: 3, max: 7 },
+    tempo_crescimento: [20, 40, 60],
   }
 };
 
@@ -28,17 +28,17 @@ const tipo_planta = {
 
 
 
-   
-function cria_planta(tipo){
-  return{
-   tipo,
-   hidratacao: 50,
-   fase_crescimento: 1,
-   maduro: 0,
-   vida: 100,
-   tempo_plantado: 0,
-   velocidade_crescimento: 1, //multiplica para    MANTENHO SÓ SE DER TEMPO DE AJUSTAR ISSO
-   inicio_plantado: null // será preenchido ao plantar
+
+function cria_planta(tipo) {
+  return {
+    tipo,
+    hidratacao: 50,
+    fase_crescimento: 1,
+    maduro: 0,
+    vida: 100,
+    tempo_plantado: 0,
+    velocidade_crescimento: 1, //multiplica para    MANTENHO SÓ SE DER TEMPO DE AJUSTAR ISSO
+    inicio_plantado: null // será preenchido ao plantar
   }
 }
 
@@ -58,15 +58,15 @@ export function get_plantas() {
   return Object.keys(tipo_planta);
 }
 
-let tipo_selecionado = null; 
+let tipo_selecionado = null;
 
-export function get_planta_selecionada() { 
-   return tipo_selecionado; 
+export function get_planta_selecionada() {
+  return tipo_selecionado;
 }
 
 
 
-   export function plantar(unidade_plantio, tipo) {
+export function plantar(unidade_plantio, tipo) {
   const preparo = unidade_plantio.dataset.preparo_solo;
   const est_solo = unidade_plantio.dataset.estado_solo;
   const est_plantio = unidade_plantio.dataset.estado_plantio;
@@ -82,24 +82,24 @@ export function get_planta_selecionada() {
     const inst = cria_planta(tipo);
     inst.inicio_plantado = Number(get_tempo_jogo()); //  timestamp do timer agora
     unidade_plantio.planta = inst;
-   
+
     aplicar_visual_unidade(unidade_plantio);
- 
+
 
     console.log("Plantou:", tipo, "em", inst.inicio_plantado);
   }
 }
 
-export function seleciona_planta(tipo){
-   if (tipo === null){
-      tipo_selecionado = null;               
-      return;
-   }
-   if(tipo_planta[tipo]){
-      tipo_selecionado = tipo;
-   } else {
-      console.log('Não existe planta com do tipo', tipo);
-   }
+export function seleciona_planta(tipo) {
+  if (tipo === null) {
+    tipo_selecionado = null;
+    return;
+  }
+  if (tipo_planta[tipo]) {
+    tipo_selecionado = tipo;
+  } else {
+    console.log('Não existe planta com do tipo', tipo);
+  }
 }
 
 
@@ -152,7 +152,7 @@ export function calcula_fase_atual(planta) {
 
 export function avanca_fase_unidade(unidade) {
   if (!unidade || !unidade.planta) {
-     console.log('avanca_fase_unidade: sem planta na unidade', unidade && unidade.dataset.posicao);
+    console.log('avanca_fase_unidade: sem planta na unidade', unidade && unidade.dataset.posicao);
     return null;
   }
   const info = calcula_fase_atual(unidade.planta);
@@ -178,13 +178,13 @@ export function avanca_fase_unidade(unidade) {
 
 
 
- export function colher(unidade){
-   if(!unidade || !unidade.planta){
+export function colher(unidade) {
+  if (!unidade || !unidade.planta) {
     console.log('colher: sem planta na unidade', unidade && unidade.dataset.posicao);
     return null;
-   }
-  
-  if(!unidade.planta.maduro) {
+  }
+
+  if (!unidade.planta.maduro) {
     console.log('colher: planta ainda não esta madura', unidade && unidade.dataset.posicao);
     return null;
   }
@@ -192,7 +192,7 @@ export function avanca_fase_unidade(unidade) {
   const tipo = unidade.planta.tipo;  // ver isso bug?
   const preco = (tipo_planta[tipo] && tipo_planta[tipo].preco_venda) || 0;
 
-  
+
   vender(preco);
   // ao colher fica sem planta, e bagunça o solo
 
@@ -201,17 +201,17 @@ export function avanca_fase_unidade(unidade) {
   unidade.dataset.estado_plantio = 'sem_planta';
   unidade.dataset.preparo_solo = 'não_preparado';
   unidade.dataset.umidade_solo = 'seco';   // talvez n faça sentido setar seco agr
-  unidade.classList.remove('planta-madura','preparado','umido');
+  unidade.classList.remove('planta-madura', 'preparado', 'umido');
   unidade.removeAttribute('data-tipo_planta');
   unidade.removeAttribute('data-fase_planta');
 
 
 
 
-   const label = unidade.querySelector('.planta-label');
-   if (label) label.remove();
+  const label = unidade.querySelector('.planta-label');
+  if (label) label.remove();
 
-   aplicar_visual_unidade(unidade);
+  aplicar_visual_unidade(unidade);
 
   console.log(`colhido ${tipo} por R$${preco} na unidade`, unidade.dataset.posicao);
   return preco;
@@ -233,14 +233,14 @@ export function matar_planta_unidade(unidade) {
   // limpa dataset e objeto planta
   unidade.dataset.estado_plantio = 'sem_planta';
   unidade.dataset.preparo_solo = 'não_preparado';
-   unidade.dataset.umidade_solo = 'seco';
+  unidade.dataset.umidade_solo = 'seco';
   unidade.planta = null;
-  unidade.classList.remove('planta-madura','preparado','umido');
+  unidade.classList.remove('planta-madura', 'preparado', 'umido');
   unidade.removeAttribute('data-tipo_planta');
   unidade.removeAttribute('data-fase_planta');
 
 
-  
+
   // remove label se houver
   const label = unidade.querySelector('.planta-label');
   if (label) label.remove();
@@ -257,10 +257,10 @@ export function atualiza_hidratacao_planta_unidade(unidade, minutos = 1) {
   const planta = unidade.planta;
 
   const prev = Number(planta.hidratacao ?? 50);
-console.log('[HIDRA DEBUG]', unidade.dataset.posicao || '?', 'prev=', prev,
-            'minutos=', minutos, 'inc/min=', HIDRATACAO_INCREMENTO_POR_MIN);
+  console.log('[HIDRA DEBUG]', unidade.dataset.posicao || '?', 'prev=', prev,
+    'minutos=', minutos, 'inc/min=', HIDRATACAO_INCREMENTO_POR_MIN);
 
-  
+
   planta.hidratacao = Number(planta.hidratacao ?? 50);
   planta.vida = Number(planta.vida ?? 100);
 
@@ -276,11 +276,11 @@ console.log('[HIDRA DEBUG]', unidade.dataset.posicao || '?', 'prev=', prev,
     planta.hidratacao = Math.max(HIDRATACAO_MIN, planta.hidratacao - HIDRATACAO_DECRESCIMO_POR_MIN * minutos);
   }
 
-console.log('calcula_hidratacao_atual:', {
+  console.log('calcula_hidratacao_atual:', {
     tipo: planta.tipo, vida: planta.vida, umidade, hidratacao: planta.hidratacao
   });
 
-console.log('[HIDRA RESULT]', unidade.dataset.posicao || '?', 'new=', planta.hidratacao);
+  console.log('[HIDRA RESULT]', unidade.dataset.posicao || '?', 'new=', planta.hidratacao);
 
 
   // se sem água, começa a perder vida

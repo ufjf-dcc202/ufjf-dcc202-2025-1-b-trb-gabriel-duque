@@ -1,22 +1,22 @@
-
 /* Reset básico do css    */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
 }
 
-body{
-    text-align: center;
-    padding-top: 15px;
-    background-color: rgb(109, 27, 27);
+body {
+  text-align: center;
+  padding-top: 15px;
+  background-color: rgb(109, 27, 27);
 }
 
 
 
-:root{
-  --tile_size: 48px; /* ajuste global do "zoom" dos tiles aqui */
+:root {
+  --tile_size: 48px;
+  /* ajuste global do "zoom" dos tiles aqui */
 }
 
 /* area de plantio com tamanho fixo por tile */
@@ -36,8 +36,9 @@ body{
 
 
 
-.unidade-plantio{
-  position: relative; /*overlays absolutos */
+.unidade-plantio {
+  position: relative;
+  /*overlays absolutos */
   box-sizing: border-box;
   border: 1px solid rgb(80, 18, 18);
 
@@ -52,17 +53,18 @@ body{
   background-repeat: no-repeat;
   /* ordem: primeiro overlay (pedra/erva), depois base (solo) */
   background-position: center, center;
-  background-size: 60% 60%, 100% 100%; 
-  image-rendering: pixelated;   /* mantém pixels nítidos quando aumentar */
+  background-size: 60% 60%, 100% 100%;
+  image-rendering: pixelated;
+  /* mantém pixels nítidos quando aumentar */
 }
 
 
 
 
 .unidade-plantio:hover {
-            transform: scale(1.05);
-            border-color: #FFD700;
-        }
+  transform: scale(1.05);
+  border-color: #FFD700;
+}
 
 
 
@@ -77,7 +79,7 @@ body{
   padding: 8px;
   background: rgb(78, 19, 19);
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .slot-ferramenta {
@@ -92,26 +94,28 @@ body{
   background: white;
   cursor: pointer;
   transition: transform .08s ease, border-color .12s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .slot-ferramenta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
 
 .slot-ferramenta.selecionado {
   border-color: #4CAF50;
-            background-color: #E8F5E9;
-            transform: scale(1.05);
+  background-color: #E8F5E9;
+  transform: scale(1.05);
 }
 
-.timer{
+.timer {
   position: absolute;
   font-size: large;
-  top: 20px;          /* distância do topo */
-  right: 20px;        /* distância da direita */
-  background-color: rgba(0,0,0,0.7);
+  top: 20px;
+  /* distância do topo */
+  right: 20px;
+  /* distância da direita */
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
   padding: 8px 12px;
   border-radius: 6px;
@@ -119,50 +123,61 @@ body{
   font-size: 18px;
 }
 
-#btn-timer-regride{
+.btn-timer:hover {
+  transform: scale(1.05);
+  transform: translateY(-3px);
+  border-color: #4CAF50;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+
+#btn-timer-regride {
   position: absolute;
   font-size: large;
-  top: 80px;          /* distância do topo */
+  top: 80px;
+  /* distância do topo */
   right: 80px;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
 }
 
-#btn-timer-progride{
+#btn-timer-progride {
   position: absolute;
   font-size: large;
-  top: 80px;          /* distância do topo */
+  top: 80px;
+  /* distância do topo */
   right: 10px;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0, 0, 0, 0.7);
   color: white;
 }
 
-.menu-planta{
+.menu-planta {
   position: absolute;
-  
-   top: 120px;
-   left: 20px;
-   display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            padding: 8px;
-              background: rgb(78, 19, 19);
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            width: auto;
+
+  top: 120px;
+  left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px;
+  background: rgb(78, 19, 19);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: auto;
 }
 
 
 /* botão */
 .slot-planta {
   width: 72px;
-  height: 82px;              
+  height: 82px;
   border: 2px solid transparent;
   border-radius: 8px;
   background: white;
   cursor: pointer;
   position: relative;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   padding: 0;
   display: inline-block;
@@ -174,12 +189,13 @@ body{
 .slot-planta::before {
   content: "";
   position: absolute;
-  top: 6px;               
+  top: 6px;
   left: 50%;
   transform: translateX(-50%);
-  width: 78%;               
-  height: 58%;              
-  background-size: contain; /* mantém proporção */
+  width: 78%;
+  height: 58%;
+  background-size: contain;
+  /* mantém proporção */
   background-repeat: no-repeat;
   background-position: center top;
   z-index: 1;
@@ -194,12 +210,13 @@ body{
   left: 0;
   width: 100%;
   text-align: center;
-  background: #2e7d32;    
+  background: #2e7d32;
   color: white;
   font-size: 12px;
   padding: 4px 2px;
   box-sizing: border-box;
-  z-index: 2;               /* acima da imagem */
+  z-index: 2;
+  /* acima da imagem */
   text-transform: capitalize;
   font-weight: 600;
   line-height: 1;
@@ -207,33 +224,34 @@ body{
 
 
 .slot-planta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
 
 
- .slot-planta.selecionado {
-            border-color: #4CAF50;
-            background-color: #E8F5E9;
-            transform: scale(1.05);
-        }
+.slot-planta.selecionado {
+  border-color: #4CAF50;
+  background-color: #E8F5E9;
+  transform: scale(1.05);
+}
 
 
 
-    
+
 
 
 /* destaque visual quando madura */
 .unidade-plantio.planta-madura .planta-badge {
-  background: linear-gradient(90deg, #e67e22, #d35400); /* laranja */
-  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  background: linear-gradient(90deg, #e67e22, #d35400);
+  /* laranja */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
-#dinheiro{
+#dinheiro {
   position: absolute;
   top: 70px;
   left: 30px;
-  background: rgba(0,0,0,0.65);
+  background: rgba(0, 0, 0, 0.65);
   color: #fff;
   font-size: 20px;
 }
@@ -242,14 +260,26 @@ body{
 
 
 .tile {
-  image-rendering: pixelated; /* bom para pixel art */
+  image-rendering: pixelated;
+  /* bom para pixel art */
   width: 100%;
   height: 100%;
 }
 
-.base-tile { z-index: 0; }
-.tile-overlay { z-index: 2; display: block; }
-.planta-badge { z-index: 3; pointer-events: none; font-weight: bold; }
+.base-tile {
+  z-index: 0;
+}
+
+.tile-overlay {
+  z-index: 2;
+  display: block;
+}
+
+.planta-badge {
+  z-index: 3;
+  pointer-events: none;
+  font-weight: bold;
+}
 
 
 
@@ -260,11 +290,11 @@ body{
 .slot-planta[data-tipo_planta="tomate"]::before {
   background-image: url("./assets/assets_jogo/plantas/tomate.png");
 }
+
 .slot-planta[data-tipo_planta="milho"]::before {
   background-image: url("./assets/assets_jogo/plantas/milho.png");
 }
+
 .slot-planta[data-tipo_planta="batata"]::before {
   background-image: url("./assets/assets_jogo/plantas/batata.png");
 }
-
-
