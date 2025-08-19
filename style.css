@@ -10,6 +10,7 @@
 body{
     text-align: center;
     padding-top: 15px;
+    background-color: rgb(109, 27, 27);
 }
 
 
@@ -36,7 +37,7 @@ body{
 
 
 .unidade-plantio{
-  position: relative; /* necessário para badges/overlays absolutos */
+  position: relative; /*overlays absolutos */
   box-sizing: border-box;
   border: 1px solid rgb(80, 18, 18);
 
@@ -58,35 +59,30 @@ body{
 
 
 
+.unidade-plantio:hover {
+            transform: scale(1.05);
+            border-color: #FFD700;
+        }
 
 
 
-.unidade-plantio[data-estado_solo = "pedra"]{
-    background-color: gray;
-}
 
-.unidade-plantio[data-estado_solo = "erva_daninha"]{
-    background-color: lightgreen;
-}
-
-.unidade-plantio[data-estado_solo = "vazio"]{
-    background-color: brown;
-}
 
 .menu-ferramentas {
   position: absolute;
-  top: 50px;
-  left: 20px;
+  top: 750px;
+  left: 800px;
   display: flex;
   gap: 8px;
   padding: 8px;
   background: rgba(0,0,0,0.05);
   border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .slot-ferramenta {
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -96,13 +92,18 @@ body{
   background: white;
   cursor: pointer;
   transition: transform .08s ease, border-color .12s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.slot-ferramenta:active { transform: translateY(1px); }
+.slot-ferramenta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
 
-.slot-ferramenta.selected {
-  border-color: #ffd166;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+.slot-ferramenta.selecionado {
+  border-color: #4CAF50;
+            background-color: #E8F5E9;
+            transform: scale(1.05);
 }
 
 .timer{
@@ -137,47 +138,81 @@ body{
 }
 
 .menu-planta{
-    position: absolute;
-  top: 120px;
-  left: 20px;
-  display: flex;
-  gap: 8px;
-  padding: 8px;
-  background: rgba(0,0,0,0.05);
-  border-radius: 8px;
+  position: absolute;
+ 
+   top: 120px;
+   left: 20px;
+   display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 8px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: auto;
 }
 
 
+/* botão */
 .slot-planta {
-  width: 56px;
-  height: 56px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  width: 60px;
+  height: 60px;
   border: 2px solid transparent;
   border-radius: 8px;
   background: white;
   cursor: pointer;
-  transition: transform .08s ease, border-color .12s ease;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  overflow: hidden; /* impede imagem de passar da borda */
 }
 
-
-
-.planta-badge {
+/* imagem ocupa a parte de cima */
+.slot-planta::before {
+  content: "";
   position: absolute;
-  top: 6px;
-  right: 6px;
-  background: rgba(0,0,0,0.65);
-  color: #fff;
-  font-size: 12px;
-  line-height: 1;
-  padding: 2px 6px;
-  border-radius: 8px;
-  pointer-events: none; /* não atrapalha cliques na célula */
-  font-weight: 600;
-  text-transform: none;
+  top: 0px;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;      /* proporcional ao botão */
+  height: 70%;     /* ocupa só a parte superior */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
+
+/* nome da planta em faixa fixa */
+.slot-planta::after {
+  content: attr(data-tipo_planta); 
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background: rgba(0,0,0,0.7);  /* faixa escura */
+  color: white;
+  font-size: 12px;
+  padding: 2px 0;
+  box-sizing: border-box;
+}
+
+
+.slot-planta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+
+ .slot-planta.selecionado {
+            border-color: #4CAF50;
+            background-color: #E8F5E9;
+            transform: scale(1.05);
+        }
+
+
+
+    
+
 
 /* destaque visual quando madura */
 .unidade-plantio.planta-madura .planta-badge {
@@ -186,8 +221,8 @@ body{
 }
 
 #dinheiro{
-  position: fixed;
-  top: 200px;
+  position: absolute;
+  top: 70px;
   left: 30px;
   background: rgba(0,0,0,0.65);
   color: #fff;
@@ -206,4 +241,21 @@ body{
 .base-tile { z-index: 0; }
 .tile-overlay { z-index: 2; display: block; }
 .planta-badge { z-index: 3; pointer-events: none; font-weight: bold; }
+
+
+
+
+
+
+
+.slot-planta[data-tipo_planta="tomate"]::before {
+  background-image: url("./assets/assets_jogo/plantas/tomate.png");
+}
+.slot-planta[data-tipo_planta="milho"]::before {
+  background-image: url("./assets/assets_jogo/plantas/milho.png");
+}
+.slot-planta[data-tipo_planta="batata"]::before {
+  background-image: url("./assets/assets_jogo/plantas/batata.png");
+}
+
 

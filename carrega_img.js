@@ -35,7 +35,7 @@ export const overlay_imagens = {
 
 
 
- export function aplicar_visual_btn(btn){
+/*  export function aplicar_visual_btn(btn){
   if(!btn) return;
   // pega tamanho_tile do :root (se existir), senão usa 48px
   const estilo_root = getComputedStyle(document.documentElement);
@@ -59,8 +59,8 @@ export const overlay_imagens = {
     img.style.pointerEvents = 'none';
     unidade.appendChild(img);
  }
+ */
 
-} 
 
 
 
@@ -73,7 +73,7 @@ export function aplicar_visual_unidade(unidade) {
   const estilo_root = getComputedStyle(document.documentElement);
   const tamanho_tile = (estilo_root.getPropertyValue('--tile_size') || '48px').trim();
 
-  // garante dimensões & posicionamento (mas agora deixamos a maior parte para o CSS)
+  // garante dimensões & posicionamento 
   unidade.style.width = tamanho_tile;
   unidade.style.height = tamanho_tile;
   unidade.style.position = unidade.style.position || 'relative';

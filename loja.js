@@ -1,7 +1,7 @@
 //loja.js
 
 
-let saldo = 0;  //saldo inicial do jogador
+let saldo = 3.00;  //saldo inicial do jogador
 
 export function get_saldo(){
     return saldo;
@@ -31,7 +31,7 @@ function remove_saldo(valor){
 export function atualiza_tela_saldo(){
     const tela = document.getElementById("dinheiro");
     if(tela){
-        tela.textContent = `R$: ${saldo.toFixed(2)}`;
+        tela.textContent = `SALDO: ${saldo.toFixed(2)}`;
     }
 }
 
