@@ -58,7 +58,8 @@ export function aplicar_visual_unidade(unidade) {
   unidade.style.backgroundPosition = 'center';
 
   // remove overlay anterior se existir
-  const overlay_anterior = unidade.querySelector('.overlay') || unidade.querySelector('.overlay-planta');
+  const overlay_anterior = unidade.querySelectorAll('.overlay, .overlay-planta, .overlay-estatico').forEach(n => n.remove());
+
   if (overlay_anterior) overlay_anterior.remove();
 
   // overlay para pedra / erva (estatico)
@@ -75,11 +76,11 @@ export function aplicar_visual_unidade(unidade) {
 
 // overlay de planta: somente se unidade.dataset.estado_plantio === 'com_planta' e unidade.planta existir
   if (estado_plantio === 'com_planta' && unidade.planta && unidade.planta.tipo) {
-    const tipo = unidade.planta.tipo;
+    const tipo = String(unidade.planta.tipo);
     const fase = Number(unidade.planta.fase_crescimento || 1);
 
     // tenta localizar a imagem por convenção: `${tipo}_fase${n}`
-    const chave_possivel = `${tipo}_fase${fase}`;
+    const chave_possivel = `${tipo}_fase${fase}`;   // usar ?? talvez 
     const src_planta = overlay_imagens[chave_possivel] || overlay_imagens[tipo];
 
     if (src_planta) {
@@ -87,7 +88,22 @@ export function aplicar_visual_unidade(unidade) {
       img_planta.className = 'overlay-planta';
       img_planta.src = src_planta;
 
-      img_planta.style.pointerEvents = 'none';
+
+
+// TRANSFORMAR EM FUNCAO ISSO
+         // posicionamento: centraliza horizontal e fixa na base (bottom) — evita "cortar" pela parte de cima
+    img_planta.style.position = 'absolute';
+    img_planta.style.left = '50%';
+    img_planta.style.bottom = '4%';        // pequeno offset para não encostar na borda
+    img_planta.style.transform = 'translateX(-50%)';
+    img_planta.style.width = 'auto';
+    img_planta.style.height = '85%';       // controla o tamanho visual da planta (ajuste aqui)
+    img_planta.style.maxWidth = '100%';
+    img_planta.style.maxHeight = '100%';
+    img_planta.style.objectFit = 'contain';
+    img_planta.style.pointerEvents = 'none';
+    img_planta.style.imageRendering = 'pixelated';
+  
       unidade.appendChild(img_planta);
     } 
   }

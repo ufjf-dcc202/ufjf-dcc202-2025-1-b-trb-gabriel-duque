@@ -434,6 +434,7 @@ setInterval(() => {
       if (u.planta) { 
         atualiza_hidratacao_planta_unidade(u);
         avanca_fase_unidade(u);
+        aplicar_visual_unidade(u);
       }
    
   });
