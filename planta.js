@@ -1,5 +1,6 @@
 import {get_tempo_jogo} from "./timer.js"
 import {vender} from "./loja.js"
+import {aplicar_visual_unidade} from "./carrega_img.js"
 
 // Configuração fixa das plantas
 const tipo_planta = {
@@ -81,15 +82,9 @@ export function get_planta_selecionada() {
     const inst = cria_planta(tipo);
     inst.inicio_plantado = Number(get_tempo_jogo()); //  timestamp do timer agora
     unidade_plantio.planta = inst;
-
-   // label para escrever texto
-  let label = unidade_plantio.querySelector('.planta-label');
-    if (!label) {
-      label = document.createElement('span');
-      label.className = 'planta-label';
-      unidade_plantio.appendChild(label);
-    }
-    label.textContent = tipo; 
+   
+    aplicar_visual_unidade(unidade_plantio);
+ 
 
     console.log("Plantou:", tipo, "em", inst.inicio_plantado);
   }
@@ -235,6 +230,7 @@ export function matar_planta_unidade(unidade) {
   unidade.classList.remove('planta-madura');
 
 
+  
   // remove label se houver
   const label = unidade.querySelector('.planta-label');
   if (label) label.remove();
@@ -279,6 +275,7 @@ console.log('calcula_hidratacao_atual:', {
   // se a vida zerou, mata a planta
   if (planta.vida === 0) {
     matar_planta_unidade(unidade);
+
     return;
   }
 
