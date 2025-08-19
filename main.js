@@ -7,13 +7,9 @@ import {seleciona_planta, plantar, get_planta_selecionada, get_plantas, avanca_f
 import {atualiza_tela_saldo, get_saldo} from "./loja.js"
 import { aplicar_visual_unidade , overlay_imagens} from './carrega_img.js';
 
-const estado_solo = ["vazio", "pedra", "erva_daninha"];  // FIXME: Mudar estado_solo para estado-solo
+const estado_solo = ["vazio", "pedra", "erva_daninha"];  
 
 
-
-// preparo_solo = ["preparado", "não_preparado"]; // usado para gerir o preparo do solo para conseguir plantar
-// umidade_solo = ["umido", "seco"];
-// estado_plantio = ["com_planta", "sem_planta"];
 
 const quantidade_unidade_plantio = 144;
 
@@ -60,6 +56,19 @@ function cria_menu_ferramentas() {
   inventario_ferramenta.addEventListener('click', (evento) => {
     const botao = evento.target.closest('.slot-ferramenta');
     if (!botao) return; // não clicou em botão
+
+
+
+    // se clicou no mesmo botão, alterna (desmarca)
+    if (botao_selecionado === botao) {
+      botao.dataset.pressionado = 'false';
+      botao.classList.remove('selecionado');
+      botao_selecionado = null;
+      seleciona_ferramenta(null);
+      console.log('Nenhuma feramenta selecionada');
+      return;
+    }
+
 
     if (botao_selecionado) {  //quando ja existe botao selecionado
       botao_selecionado.dataset.pressionado = "false";
@@ -259,7 +268,7 @@ function cria_menu_planta(){
     btn_planta.dataset.pressionado = 'false';
     
 
-    //aplicar_visual_btn(btn_planta);
+  
     btn_planta.textContent = tipo_planta;
 
 
