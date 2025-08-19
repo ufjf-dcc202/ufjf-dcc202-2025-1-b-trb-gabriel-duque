@@ -71,9 +71,9 @@ export function aplicar_visual_unidade(unidade) {
 
   const base_url = mapa_imagens_base[chave_base] || mapa_imagens_base.vazio;
 
-  // IMPORTANTe: usar 100% 100% para a base (assim escala com a célula)
+  // IMPORTANTe: usar 100% 100% para a base (assim escala o tamanho com a divbasica)
   unidade.style.backgroundImage = `url("${base_url}")`;
-  unidade.style.backgroundSize = '100% 100%'; // <- aqui: NÃO 32x32
+  unidade.style.backgroundSize = '100% 100%';
   unidade.style.backgroundRepeat = 'no-repeat';
   unidade.style.backgroundPosition = 'center';
 
@@ -100,7 +100,7 @@ export function aplicar_visual_unidade(unidade) {
     const fase = Number(unidade.planta.fase_crescimento || 1);
 
     // tenta localizar a imagem por convenção: `${tipo}_fase${n}`
-    const chave_possivel = `${tipo}_fase${fase}`;   // usar ?? talvez 
+    const chave_possivel = `${tipo}_fase${fase}`;
     const src_planta = overlay_imagens[chave_possivel] || overlay_imagens[tipo];
 
     if (src_planta) {

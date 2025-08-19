@@ -37,7 +37,6 @@ h1{
   grid-template-rows: repeat(12, var(--tile_size));
   grid-template-columns: repeat(12, var(--tile_size));
   border: 5px solid black;
-  box-sizing: border-box;
   background-color: rgba(26, 96, 30, 0.961);
 }
 
@@ -46,10 +45,10 @@ h1{
 .unidade-plantio {
   position: relative;
   /*overlays absolutos */
-  box-sizing: border-box;
+  
   border: 1px solid rgb(80, 18, 18);
 
-  /* não precisa width/height se grid está controlando via template rows/cols */
+  /*grid está controlando via template rows/cols */
   width: auto;
   height: auto;
   border-radius: 10px;
@@ -208,7 +207,7 @@ h1{
 }
 
 
-/* botão */
+
 .slot-planta {
   width: 72px;
   height: 82px;
@@ -275,17 +274,6 @@ h1{
 }
 
 
-
-
-
-/*   TIRA ESSA CARAIO   quro DORMIRRRRRRRRRRRR*/
-/* destaque visual quando madura */
-.unidade-plantio.planta-madura .planta-badge {
-  background: linear-gradient(90deg, #e67e22, #d35400);
-  /* laranja */
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-}
-
 #dinheiro {
   position: absolute;
   top: 100px;
@@ -313,16 +301,6 @@ h1{
   z-index: 2;
   display: block;
 }
-
-.planta-badge {
-  z-index: 3;
-  pointer-events: none;
-  font-weight: bold;
-}
-
-
-
-
 
 
 

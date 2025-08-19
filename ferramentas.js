@@ -1,7 +1,6 @@
 import { aplicar_visual_unidade } from "./carrega_img.js";
 
 
-
 // ferramentas.js
 const ferramentas = [
   "picareta",
@@ -11,12 +10,6 @@ const ferramentas = [
 
 ];
 
-const cores = {
-  vazio: 'brown',        // marrom claro / chão
-  pedra: 'gray',        // cinza pedra
-  erva_daninha: 'lightgreen',   // verde erva
-  preparado: 'pink'
-};
 
 let ferramenta_selecionada = null;
 
@@ -95,7 +88,7 @@ export function regador(unidade_plantio) {
 
     // depois de 30s, volta pra seco automaticamente
     setTimeout(() => {
-      // segurança: só muda se ainda estiver úmido
+      //só muda se ainda estiver úmido
       if (unidade_plantio.dataset.umidade_solo === 'umido') {
         unidade_plantio.dataset.umidade_solo = 'seco';
         aplicar_visual_unidade(unidade_plantio);
@@ -127,10 +120,6 @@ function atualiza_estado_solo(unidade, novo_estado) {
   unidade.dataset[chave] = novo_estado;
 
   aplicar_visual_unidade(unidade);
-  // aplica transição suave (uma vez)
-  unidade.style.transition = 'background-color 180ms ease';
-  // aplica a cor (fallback para transparente se não achar)
-  unidade.style.backgroundColor = cores[novo_estado] || 'transparent';
 
 }
 
@@ -148,11 +137,6 @@ function atualiza_preparo_solo(unidade, novo_preparo) {
 
 
   aplicar_visual_unidade(unidade);
-  // aplica transição suave (uma vez)
-  unidade.style.transition = 'background-color 180ms ease';
-  // aplica a cor (fallback para transparente se não achar)
-
-  unidade.style.backgroundColor = cores[novo_preparo] || 'black';
 }
 
 function atualiza_umidade(unidade, nova_umidade) {

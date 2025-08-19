@@ -7,19 +7,16 @@ export const tipo_planta = {
   tomate: {
     preco_compra: 2,
     preco_venda: 5,
-    rendimento: { min: 1, max: 3 }, // pode ser range ??????
     tempo_crescimento: [10, 20, 30], // tempo para cada fase (em minutos do relogio do jogo)
   },
   batata: {
     preco_compra: 3,
     preco_venda: 6,
-    rendimento: { min: 2, max: 5 },
     tempo_crescimento: [15, 30, 45],
   },
   milho: {
     preco_compra: 4,
     preco_venda: 7,
-    rendimento: { min: 3, max: 7 },
     tempo_crescimento: [20, 40, 60],
   }
 };
@@ -37,13 +34,12 @@ function cria_planta(tipo) {
     maduro: 0,
     vida: 100,
     tempo_plantado: 0,
-    velocidade_crescimento: 1, //multiplica para    MANTENHO SÓ SE DER TEMPO DE AJUSTAR ISSO
     inicio_plantado: null // será preenchido ao plantar
   }
 }
 
 
-// parâmetros de ajuste (tweak aqui)
+// parâmetros de ajuste
 const HIDRATACAO_INCREMENTO_POR_MIN = 2;   // quando o solo tá 'umido', o quanto aumenta por minuto a hidaratacao da planta
 const HIDRATACAO_DECRESCIMO_POR_MIN = 5;   // quando o solo tá 'seco', o quanto diminui por minuto a hidratacao da planta
 const HIDRATACAO_MIN = 0;
@@ -53,12 +49,13 @@ const DANO_DESIDRATADA = 5;
 
 const TOTAL_MINUTOS = 24 * 60; // 1440, para tratar o circulo do relógio 23-> 00
 
+let tipo_selecionado = null;
 
 export function get_plantas() {
   return Object.keys(tipo_planta);
 }
 
-let tipo_selecionado = null;
+
 
 export function get_planta_selecionada() {
   return tipo_selecionado;
@@ -80,7 +77,7 @@ export function plantar(unidade_plantio, tipo) {
     unidade_plantio.dataset.estado_plantio = "com_planta";
     unidade_plantio.dataset.tipo_planta = tipo;
     const inst = cria_planta(tipo);
-    inst.inicio_plantado = Number(get_tempo_jogo()); //  timestamp do timer agora
+    inst.inicio_plantado = Number(get_tempo_jogo()); //  horario do timer agora
     unidade_plantio.planta = inst;
 
     aplicar_visual_unidade(unidade_plantio);
@@ -122,7 +119,7 @@ export function calcula_fase_atual(planta) {
   const agora = Number(get_tempo_jogo());
   const inicio = Number(planta.inicio_plantado || 0);
   let tempo_decorrido = agora - inicio;
-  if (tempo_decorrido < 0) tempo_decorrido += TOTAL_MINUTOS; // wrap de 24h, só por segurança
+  if (tempo_decorrido < 0) tempo_decorrido += TOTAL_MINUTOS; // para segunrança, devido ao loop de 23->00
 
   const tempos = (ficha_planta.tempo_crescimento || []).map(n => Number(n) || 0);
 
@@ -189,7 +186,7 @@ export function colher(unidade) {
     return null;
   }
 
-  const tipo = unidade.planta.tipo;  // ver isso bug?
+  const tipo = unidade.planta.tipo;
   const preco = (tipo_planta[tipo] && tipo_planta[tipo].preco_venda) || 0;
 
 
@@ -200,7 +197,7 @@ export function colher(unidade) {
 
   unidade.dataset.estado_plantio = 'sem_planta';
   unidade.dataset.preparo_solo = 'não_preparado';
-  unidade.dataset.umidade_solo = 'seco';   // talvez n faça sentido setar seco agr
+  unidade.dataset.umidade_solo = 'seco';
   unidade.classList.remove('planta-madura', 'preparado', 'umido');
   unidade.removeAttribute('data-tipo_planta');
   unidade.removeAttribute('data-fase_planta');
@@ -277,14 +274,15 @@ export function atualiza_hidratacao_planta_unidade(unidade, minutos = 1) {
     planta.hidratacao = Math.max(HIDRATACAO_MIN, planta.hidratacao - HIDRATACAO_DECRESCIMO_POR_MIN * minutos);
   }
 
+  // DEBUG para acompanhar como está o andamento da hidratacao, umidade, etc
   console.log('calcula_hidratacao_atual:', {
     tipo: planta.tipo, vida: planta.vida, umidade, hidratacao: planta.hidratacao
   });
 
-  console.log('[HIDRA RESULT]', unidade.dataset.posicao || '?', 'new=', planta.hidratacao);
 
 
-  // se sem água, começa a perder vida
+
+  //  sem água, começa a perder vida
   if (planta.hidratacao === HIDRATACAO_MIN) {
     planta.vida = planta.vida - DANO_DESIDRATADA * minutos;
     console.log(`atualiza_hidratacao_planta_unidade: planta na pos ${unidade.dataset.posicao} perdeu vida, vida=${planta.vida}`);
