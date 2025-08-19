@@ -190,21 +190,30 @@ export function avanca_fase_unidade(unidade) {
   }
 
   const tipo = unidade.planta.tipo;  // ver isso bug?
-  const preco = tipo_planta[tipo].preco_venda;
+  const preco = (tipo_planta[tipo] && tipo_planta[tipo].preco_venda) || 0;
 
-
-  vender(preco);
-
-  // ao colher fica sem planta, e bagunça o solo
-  unidade.dataset.estado_plantio = 'sem_planta';
-  unidade.dataset.preparo_solo = 'sem_preparo';
-  unidade.dataset.umidade_solo = 'seco';
-  unidade.planta = null;
-  // func para receber dinheiro  etc
   
+  vender(preco);
+  // ao colher fica sem planta, e bagunça o solo
+
+  unidade.planta = null;
+
+  unidade.dataset.estado_plantio = 'sem_planta';
+  unidade.dataset.preparo_solo = 'não_preparado';
+  unidade.dataset.umidade_solo = 'seco';
+  unidade.classList.remove('planta-madura','preparado');
+  unidade.removeAttribute('data-tipo_planta');
+  unidade.removeAttribute('data-fase_planta');
+
+  // talvez tirar, acho q n precisa, pq ja tiro em outro lugar
+unidade.querySelectorAll('.overlay-planta').forEach(n => n.remove());
+  
+
 
    const label = unidade.querySelector('.planta-label');
    if (label) label.remove();
+
+   aplicar_visual_unidade(unidade);
 
   console.log(`colhido ${tipo} por R$${preco} na unidade`, unidade.dataset.posicao);
   return preco;

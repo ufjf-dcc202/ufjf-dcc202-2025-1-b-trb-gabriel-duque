@@ -15,7 +15,7 @@ export const overlay_imagens = {
   milho: './assets/assets_jogo/plantas/milho.png',
   milho_fase1: './assets/assets_jogo/plantas/milho_broto.png',
   milho_fase2: './assets/assets_jogo/plantas/milho_broto2.png',
-  milho_fase3_maduro: './assets/assets_jogo/plantas/milho_maduro.png',
+  milho_fase3: './assets/assets_jogo/plantas/milho_maduro.png',
   milho_colhido: './assets/assets_jogo/plantas/milho_colhido.png'
 };
 
